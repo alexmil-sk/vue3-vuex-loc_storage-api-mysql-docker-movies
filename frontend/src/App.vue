@@ -18,13 +18,11 @@
 
         <div v-else>
           <h1 v-if="films.length">
-            Choose Movie For Uploading Into The MYSQL Database
+            Select Movie For Uploading Into The MYSQL Database
           </h1>
           <h1 v-else>Load movies...</h1>
 
           <FilmsArray
-            @getFilms="getFilms"
-            @closeFilms="closeFilms"
             :films="films"
             :isChanged="isChanged"
             @chooseFilm="chooseFilm"
@@ -42,10 +40,9 @@
           </button>
         </div>
         <div>
-          <h1>Chosen Movies</h1>
+          <h1>Selected Movies</h1>
           <ChosenArray
             :chosenMovies="chosenMovies"
-            :isChanged="isChanged"
             @deleteChosenItem="deleteChosenItem"
           />
         </div>
@@ -75,6 +72,11 @@ export default {
       chosenMovies: [],
     };
   },
+  provide() {
+    return {
+      isChanged: false,
+    };
+  },
   mounted() {
     this.isChanged = JSON.parse(localStorage.getItem("isChanged"));
     this.films = JSON.parse(localStorage.getItem("films"));
@@ -89,30 +91,39 @@ export default {
       });
     },
 
-    getFilms() {
-      const howManyMovies = +prompt(
-        "How many movies do you want to download?\n From 1 to 86"
-      );
+		getFilms() {
+			const start = +prompt(
+				"Enter first number of movies you want to download.\n Max 86"
+			);
 
-      if (!howManyMovies) {
-        this.$toast.show("<h3>You should insert any number from 1 to 86</h3>", {
+			const end = +prompt(
+				"Enter second number of movies you want to download.\n Max 86"
+			);
+
+			if (!start || !end) {
+				this.$toast.show("<h3>You should insert number from 1 to 86</h3>", {
+					type: "error",
+				});
+				return;
+			} else if (start <= 0 || end <= 0 || start > 86 || end > 86) {
+				this.$toast.show("<h3>The number should be from 1 to 86</h3>", {
+					type: "error",
+				});
+				return;
+			} else if (start > end || start == end) {
+        this.$toast.show("<h3>The first number should be bigger then the second</h3>", {
           type: "error",
         });
         return;
-      } else if (howManyMovies <= 0 || howManyMovies > 86) {
-        this.$toast.show("<h3>The number should be from 1 to 86</h3>", {
-          type: "error",
-        });
-        return;
-      } else {
+			} else {
+				
         this.isLoading = true;
-
         this.$toast.show("<h3>Loading is in progress...</h3>", {
           type: "info",
         });
         setTimeout(async () => {
           try {
-            this.films = await fetchMovies(howManyMovies);
+            this.films = await fetchMovies(start, end);
 
             this.isLoading = false;
             this.$toast.show("<h3>Movies were loaded!</h3>", {

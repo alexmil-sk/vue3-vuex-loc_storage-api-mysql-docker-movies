@@ -10,12 +10,15 @@
 
 <script>
 export default {
-  props: ["movie", "isChanged"],
+	props: {
+		movie: Object,
+	},
+	inject: ['isChanged']
 };
 </script>
 
 
-<style lang="css">
+<style lang="css" scoped>
 .card {
   position: relative;
   display: flex;

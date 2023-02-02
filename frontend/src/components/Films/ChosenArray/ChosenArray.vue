@@ -4,7 +4,6 @@
       <div v-for="movie in chosenMovies" :key="movie.id">
         <ChosenItem
 					:movie="movie"
-					:isChanged="isChanged"
 					@deleteChosenItem="$emit('deleteChosenItem', movie.id)"
 				/>
       </div>
@@ -17,7 +16,9 @@ import ChosenItem from "./ChosenItem/ChosenItem.vue";
 
 export default {
   components: { ChosenItem },
-	props: ["chosenMovies", "isChanged"],
+	props: {
+		chosenMovies: Array,
+	},
 	emits: ['deleteChosenItem']
 };
 </script>

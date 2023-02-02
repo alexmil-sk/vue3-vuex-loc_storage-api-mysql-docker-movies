@@ -1,13 +1,23 @@
 <template>
-  <div class="card" :class="isChanged ? 'bg-for-green' : 'bg-for-red'">
-    <img :src="film.posterURL" width="100" height="156" :alt="film.title" />
+  <div
+		class="card"
+		:class="isChanged ? 'bg-for-green' : 'bg-for-red'"
+	>
+    <img
+			:src="film.posterURL"
+			width="100"
+			height="156"
+			:alt="film.title" />
   </div>
 </template>
 
 
 <script>
 export default {
-  props: ["film", "isChanged"],
+	props: {
+		film: Object,
+	},
+	inject: ['isChanged']
 };
 </script>
 

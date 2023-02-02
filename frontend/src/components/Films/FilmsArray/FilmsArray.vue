@@ -4,7 +4,6 @@
       <div v-for="film in films" :key="film.id">
         <FilmItem
           :film="film"
-          :isChanged="isChanged"
           @click="$emit('chooseFilm', film.id)"
         />
       </div>
@@ -16,7 +15,9 @@ import FilmItem from "./FilmItem/FilmItem.vue";
 
 export default {
   components: { FilmItem },
-  props: ["films", "isChanged"],
+	props: {
+		films: Array,
+	},
   emits: ["chooseFilm"],
   data() {
     return {};

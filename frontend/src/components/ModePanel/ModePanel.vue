@@ -13,7 +13,9 @@ import joinRight from "../../assets/mode/join_right_red.png";
 import joinLeft from "../../assets/mode/join_left_green.png";
 
 export default {
-	props: ["isChanged"],
+	props: {
+		isChanged: Boolean
+	},
 	emits: ['changeMode'],
   data() {
     return {
