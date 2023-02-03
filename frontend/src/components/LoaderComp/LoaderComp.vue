@@ -3,11 +3,6 @@
 		<span class="loader"></span>
 	</div>
 </template>
-<script>
-export default {
-	
-}
-</script>
 
 <style lang="css">
 	.loader {

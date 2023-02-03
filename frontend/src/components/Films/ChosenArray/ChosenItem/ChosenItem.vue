@@ -31,7 +31,6 @@ export default {
   border: 1px solid var(--vt-c-white);
   border-radius: 10px;
   box-shadow: 0 0 15px 5px var(--vt-c-white);
-  cursor: pointer;
 }
 
 .card img {

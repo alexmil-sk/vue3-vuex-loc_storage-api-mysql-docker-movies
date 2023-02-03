@@ -13,7 +13,6 @@
       <ModePanel :isChanged="isChanged" @changeMode="changeMode" />
       <div class="container">
         <div class="table" :class="isChanged ? 'bg-green' : 'bg-red'">
-					
           <BtnBlockFetch
             @openModalPopup="openModalPopup"
             @deleteFilmsArray="deleteFilmsArray"
@@ -41,11 +40,7 @@
           :class="isChanged ? 'bg-red' : 'bg-green'"
           v-if="chosenMovies.length"
         >
-          <div class="btn-block_chosen">
-            <button @click="deleteChosenMoviesArray" class="btn-block_delete">
-              <img :src="deleteIcon" />
-            </button>
-          </div>
+          <BtnBlockChosen @deleteChosenMoviesArray="deleteChosenMoviesArray" />
           <div>
             <h1>Selected Movies</h1>
             <ChosenArray
@@ -68,6 +63,7 @@ import ChosenArray from "./components/Films/ChosenArray/ChosenArray.vue";
 import LoaderComp from "./components/LoaderComp/LoaderComp.vue";
 import ModalPopup from "./components/ModalPopup/ModalPopup.vue";
 import BtnBlockFetch from "./components/BtnBlockFetch/BtnBlockFetch.vue";
+import BtnBlockChosen from "./components/BtnBlockChosen/BtnBlockChosen.vue";
 import { fetchMovies } from "./utils/fetchMovies.js";
 
 export default {
@@ -78,6 +74,7 @@ export default {
     ChosenArray,
     ModalPopup,
     BtnBlockFetch,
+    BtnBlockChosen,
   },
   data() {
     return {
@@ -90,7 +87,6 @@ export default {
   },
   provide() {
     return {
-      isChanged: false,
       deleteIcon: delete_icon,
       downloadIcon: download_icon,
     };
@@ -238,38 +234,6 @@ export default {
   text-align: center;
   font-weight: 900;
   margin: 10px;
-}
-.btn-block,
-.btn-block_chosen {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 10px;
-}
-.btn-block_chosen {
-  justify-content: end;
-}
-.btn-block button,
-.btn-block_chosen button {
-  border-radius: 50%;
-  border: 1px solid rgb(46, 46, 46);
-  box-shadow: 0px 0px 5px 5px hsla(0, 0%, 99%, 0.5);
-  cursor: pointer;
-  padding: 2px 5px;
-}
-.btn-block button:hover,
-.btn-block_chosen button:hover {
-  box-shadow: inset 0px 0px 5px 5px hsla(0, 100%, 3%, 0.5);
-}
-.btn-block button:active,
-.btn-block_chosen button:active {
-  box-shadow: 0px 0px 5px 5px hsla(0, 0%, 99%, 0.5);
-}
-.btn-block_delete {
-  background-color: rgb(255, 159, 26);
-}
-
-.btn-block_download {
-  background-color: rgb(136, 236, 60);
 }
 
 .bg-green {
