@@ -1,17 +1,20 @@
 <template>
   <div class="btn-block">
-    <button @click="$emit('openModalPopup')" class="btn-block_download">
+    <ButtonUi @action="$emit('openModalPopup')" :color="'btn-block_download'">
       <img :src="downloadIcon" />
-    </button>
-    <button @click="$emit('deleteFilmsArray')" class="btn-block_delete">
+    </ButtonUi>
+    <ButtonUi @action="$emit('deleteFilmsArray')" :color="'btn-block_delete'">
       <img :src="deleteIcon" />
-    </button>
+    </ButtonUi>
   </div>
 </template>
 <script>
+import ButtonUi from "../UI/ButtonUi.vue";
+
 export default {
-	inject: ['deleteIcon', 'downloadIcon'],
-	emits: ['deleteFilmsArray', 'openModalPopup']
+  components: { ButtonUi },
+  inject: ["deleteIcon", "downloadIcon"],
+  emits: ["deleteFilmsArray", "openModalPopup"],
 };
 </script>
 <style lang="css" scoped>
