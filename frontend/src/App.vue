@@ -10,7 +10,10 @@
     </Transition>
 
     <div class="wrapper">
-      <ModePanel :isChanged="isChanged" @changeMode="changeMode" />
+      <div class="header">
+				<TheNavbar />
+        <ModePanel :isChanged="isChanged" @changeMode="changeMode" />
+      </div>
       <div class="container">
         <div class="table" :class="isChanged ? 'bg-green' : 'bg-red'">
           <BtnBlockFetch
@@ -48,6 +51,7 @@
               <ChosenArray
                 :chosenMovies="chosenMovies"
                 @deleteChosenItem="deleteChosenItem"
+								:isChanged="isChanged"
               />
             </div>
           </div>
@@ -67,6 +71,7 @@ import LoaderComp from "./components/LoaderComp/LoaderComp.vue";
 import ModalPopup from "./components/ModalPopup/ModalPopup.vue";
 import BtnBlockFetch from "./components/BtnBlockFetch/BtnBlockFetch.vue";
 import BtnBlockChosen from "./components/BtnBlockChosen/BtnBlockChosen.vue";
+import TheNavbar from "./components/TheNavbar/TheNavbar.vue";
 import { fetchMovies } from "./utils/fetchMovies.js";
 
 export default {
@@ -77,7 +82,8 @@ export default {
     ChosenArray,
     ModalPopup,
     BtnBlockFetch,
-    BtnBlockChosen,
+		BtnBlockChosen,
+		TheNavbar
   },
   data() {
     return {
@@ -222,15 +228,23 @@ export default {
   min-height: 300px;
   width: 100%;
   border: 5px solid rgba(109, 64, 8, 0.9);
+  border: 5px solid rgba(255, 255, 255, 0.7);
   border-radius: 40px;
   box-shadow: 0px 0px 15px 20px rgba(109, 64, 8, 0.5);
   padding: 25px;
-  background: rgba(109, 64, 8, 0.5);
+  background: rgba(251, 4, 20, 1);
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	padding: 5px 45px;
+	margin: 0 auto 35px;
 }
 .table {
   min-height: 300px;
   border-radius: 25px;
-  border: 1px solid var(--vt-c-white);
+  border: 3px solid rgba(255, 255, 255, 0.8);
   box-shadow: inset 0px 0px 15px 10px rgba(0, 0, 0, 0.5);
   padding: 25px;
   color: var(--vt-c-white);
@@ -240,13 +254,11 @@ export default {
 }
 
 .bg-green {
-  background: url("./assets/images/green_background.png") 0 0 / 100% 100%
-    no-repeat;
+  background: url("./assets/images/green_background-2.png") repeat;
   transition: 600ms;
 }
 .bg-red {
-  background: url("./assets/images/red_background.png") 0 0 / 100% 100%
-    no-repeat;
+  background: url("./assets/images/red_background-2.png") repeat;
   transition: 600ms;
 }
 

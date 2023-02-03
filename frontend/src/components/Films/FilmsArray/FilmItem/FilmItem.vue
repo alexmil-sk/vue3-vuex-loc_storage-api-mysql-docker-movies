@@ -16,8 +16,8 @@
 export default {
 	props: {
 		film: Object,
+		isChanged: Boolean
 	},
-	inject: ['isChanged']
 };
 </script>
 
