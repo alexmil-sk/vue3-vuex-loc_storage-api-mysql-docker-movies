@@ -29,6 +29,7 @@ export default {
   box-shadow: 0px 0px 5px 5px hsla(0, 0%, 99%, 0.5);
   cursor: pointer;
   padding: 2px 5px;
+
 }
 .btn-block button:hover {
   box-shadow: inset 0px 0px 5px 5px hsla(0, 100%, 3%, 0.5);

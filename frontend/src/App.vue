@@ -1,13 +1,13 @@
 <template>
   <div>
-    <transition name="fade">
+    <Transition name="fade">
       <div v-if="isOpenModal">
         <ModalPopup
           @goModalPopup="goModalPopup"
           @closeModalPopup="closeModalPopup"
         />
       </div>
-    </transition>
+    </Transition>
 
     <div class="wrapper">
       <ModePanel :isChanged="isChanged" @changeMode="changeMode" />
@@ -17,7 +17,6 @@
             @openModalPopup="openModalPopup"
             @deleteFilmsArray="deleteFilmsArray"
           />
-
           <div v-if="isLoading" class="loader">
             <LoaderComp />
           </div>
@@ -35,20 +34,24 @@
             />
           </div>
         </div>
-        <div
-          class="table"
-          :class="isChanged ? 'bg-red' : 'bg-green'"
-          v-if="chosenMovies.length"
-        >
-          <BtnBlockChosen @deleteChosenMoviesArray="deleteChosenMoviesArray" />
-          <div>
-            <h1>Selected Movies</h1>
-            <ChosenArray
-              :chosenMovies="chosenMovies"
-              @deleteChosenItem="deleteChosenItem"
+        <Transition name="chosenMovies">
+          <div
+            class="table"
+            :class="isChanged ? 'bg-red' : 'bg-green'"
+            v-if="chosenMovies.length"
+          >
+            <BtnBlockChosen
+              @deleteChosenMoviesArray="deleteChosenMoviesArray"
             />
+            <div>
+              <h1>Selected Movies</h1>
+              <ChosenArray
+                :chosenMovies="chosenMovies"
+                @deleteChosenItem="deleteChosenItem"
+              />
+            </div>
           </div>
-        </div>
+        </Transition>
       </div>
     </div>
   </div>
@@ -253,6 +256,8 @@ export default {
 
 /* transition */
 
+/* fade */
+
 .fade-enter-from {
   z-index: 0;
 }
@@ -273,5 +278,17 @@ export default {
 }
 .fade-leave-active {
   transition: all 1s ease;
+}
+
+/* chosenMovies */
+
+.chosenMovies-enter-active,
+.chosenMovies-leave-active {
+  transition: opacity 1500ms ease;
+}
+
+.chosenMovies-enter-from,
+.chosenMovies-leave-to {
+  opacity: 0;
 }
 </style>
