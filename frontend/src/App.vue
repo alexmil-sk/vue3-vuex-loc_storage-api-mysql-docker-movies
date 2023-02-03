@@ -291,6 +291,8 @@ export default {
 /* transition */
 
 .fade-enter-from {
+  z-index: 0;
+
 }
 
 .fade-enter-to {
