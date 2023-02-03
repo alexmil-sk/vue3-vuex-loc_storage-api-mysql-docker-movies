@@ -13,14 +13,11 @@
       <ModePanel :isChanged="isChanged" @changeMode="changeMode" />
       <div class="container">
         <div class="table" :class="isChanged ? 'bg-green' : 'bg-red'">
-          <div class="btn-block">
-            <button @click="openModalPopup" class="btn-block_download">
-              <img :src="downloadIcon" />
-            </button>
-            <button @click="deleteFilmsArray" class="btn-block_delete">
-              <img :src="deleteIcon" />
-            </button>
-          </div>
+					
+          <BtnBlockFetch
+            @openModalPopup="openModalPopup"
+            @deleteFilmsArray="deleteFilmsArray"
+          />
 
           <div v-if="isLoading" class="loader">
             <LoaderComp />
@@ -70,6 +67,7 @@ import FilmsArray from "./components/Films/FilmsArray/FilmsArray.vue";
 import ChosenArray from "./components/Films/ChosenArray/ChosenArray.vue";
 import LoaderComp from "./components/LoaderComp/LoaderComp.vue";
 import ModalPopup from "./components/ModalPopup/ModalPopup.vue";
+import BtnBlockFetch from "./components/BtnBlockFetch/BtnBlockFetch.vue";
 import { fetchMovies } from "./utils/fetchMovies.js";
 
 export default {
@@ -79,11 +77,10 @@ export default {
     LoaderComp,
     ChosenArray,
     ModalPopup,
+    BtnBlockFetch,
   },
   data() {
     return {
-      deleteIcon: delete_icon,
-      downloadIcon: download_icon,
       isLoading: false,
       isChanged: false,
       isOpenModal: false,
@@ -94,6 +91,8 @@ export default {
   provide() {
     return {
       isChanged: false,
+      deleteIcon: delete_icon,
+      downloadIcon: download_icon,
     };
   },
   mounted() {
@@ -285,14 +284,13 @@ export default {
 }
 
 .loader {
-	margin: 60px auto;
+  margin: 60px auto;
 }
 
 /* transition */
 
 .fade-enter-from {
   z-index: 0;
-
 }
 
 .fade-enter-to {
