@@ -1,50 +1,61 @@
 <template>
-  <div class="wrapper">
-    <ModePanel :isChanged="isChanged" @changeMode="changeMode" />
-    <div class="container">
-      <div class="table" :class="isChanged ? 'bg-green' : 'bg-red'">
-        <div class="btn-block">
-          <button @click="getFilms" class="btn-block_download">
-            <img :src="downloadIcon" />
-          </button>
-          <button @click="deleteFilmsArray" class="btn-block_delete">
-            <img :src="deleteIcon" />
-          </button>
-        </div>
-
-        <div v-if="isLoading" class="loader">
-          <LoaderComp />
-        </div>
-
-        <div v-else>
-          <h1 v-if="films.length">
-            Select Movie For Uploading Into The MYSQL Database
-          </h1>
-          <h1 v-else>Load movies...</h1>
-
-          <FilmsArray
-            :films="films"
-            :isChanged="isChanged"
-            @chooseFilm="chooseFilm"
-          />
-        </div>
+  <div>
+    <transition name="fade">
+      <div v-if="isOpenModal">
+        <ModalPopup
+          @goModalPopup="goModalPopup"
+          @closeModalPopup="closeModalPopup"
+        />
       </div>
-      <div
-        class="table"
-        :class="isChanged ? 'bg-red' : 'bg-green'"
-        v-if="chosenMovies.length"
-      >
-        <div class="btn-block_chosen">
-          <button @click="deleteChosenMoviesArray" class="btn-block_delete">
-            <img :src="deleteIcon" />
-          </button>
+    </transition>
+
+    <div class="wrapper">
+      <ModePanel :isChanged="isChanged" @changeMode="changeMode" />
+      <div class="container">
+        <div class="table" :class="isChanged ? 'bg-green' : 'bg-red'">
+          <div class="btn-block">
+            <button @click="openModalPopup" class="btn-block_download">
+              <img :src="downloadIcon" />
+            </button>
+            <button @click="deleteFilmsArray" class="btn-block_delete">
+              <img :src="deleteIcon" />
+            </button>
+          </div>
+
+          <div v-if="isLoading" class="loader">
+            <LoaderComp />
+          </div>
+
+          <div v-else>
+            <h1 v-if="films.length">
+              Select Movie For Uploading Into The MYSQL Database
+            </h1>
+            <h1 v-else>Load movies...</h1>
+
+            <FilmsArray
+              :films="films"
+              :isChanged="isChanged"
+              @chooseFilm="chooseFilm"
+            />
+          </div>
         </div>
-        <div>
-          <h1>Selected Movies</h1>
-          <ChosenArray
-            :chosenMovies="chosenMovies"
-            @deleteChosenItem="deleteChosenItem"
-          />
+        <div
+          class="table"
+          :class="isChanged ? 'bg-red' : 'bg-green'"
+          v-if="chosenMovies.length"
+        >
+          <div class="btn-block_chosen">
+            <button @click="deleteChosenMoviesArray" class="btn-block_delete">
+              <img :src="deleteIcon" />
+            </button>
+          </div>
+          <div>
+            <h1>Selected Movies</h1>
+            <ChosenArray
+              :chosenMovies="chosenMovies"
+              @deleteChosenItem="deleteChosenItem"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -58,16 +69,24 @@ import ModePanel from "./components/ModePanel/ModePanel.vue";
 import FilmsArray from "./components/Films/FilmsArray/FilmsArray.vue";
 import ChosenArray from "./components/Films/ChosenArray/ChosenArray.vue";
 import LoaderComp from "./components/LoaderComp/LoaderComp.vue";
+import ModalPopup from "./components/ModalPopup/ModalPopup.vue";
 import { fetchMovies } from "./utils/fetchMovies.js";
 
 export default {
-  components: { ModePanel, FilmsArray, LoaderComp, ChosenArray },
+  components: {
+    ModePanel,
+    FilmsArray,
+    LoaderComp,
+    ChosenArray,
+    ModalPopup,
+  },
   data() {
     return {
       deleteIcon: delete_icon,
       downloadIcon: download_icon,
       isLoading: false,
       isChanged: false,
+      isOpenModal: false,
       films: [],
       chosenMovies: [],
     };
@@ -91,51 +110,34 @@ export default {
       });
     },
 
-		getFilms() {
-			const start = +prompt(
-				"Enter first number of movies you want to download.\n Max 86"
-			);
+    openModalPopup() {
+      this.isOpenModal = true;
+    },
+    closeModalPopup() {
+      this.isOpenModal = false;
+    },
+    goModalPopup(start, end) {
+      this.isOpenModal = false;
 
-			const end = +prompt(
-				"Enter second number of movies you want to download.\n Max 86"
-			);
+      this.isLoading = true;
+      this.$toast.show("<h3>Loading is in progress...</h3>", {
+        type: "info",
+      });
 
-			if (!start || !end) {
-				this.$toast.show("<h3>You should insert number from 1 to 86</h3>", {
-					type: "error",
-				});
-				return;
-			} else if (start <= 0 || end <= 0 || start > 86 || end > 86) {
-				this.$toast.show("<h3>The number should be from 1 to 86</h3>", {
-					type: "error",
-				});
-				return;
-			} else if (start > end || start == end) {
-        this.$toast.show("<h3>The first number should be bigger then the second</h3>", {
-          type: "error",
-        });
-        return;
-			} else {
-				
-        this.isLoading = true;
-        this.$toast.show("<h3>Loading is in progress...</h3>", {
-          type: "info",
-        });
-        setTimeout(async () => {
-          try {
-            this.films = await fetchMovies(start, end);
+      setTimeout(async () => {
+        try {
+          this.films = await fetchMovies(start, end);
 
-            this.isLoading = false;
-            this.$toast.show("<h3>Movies were loaded!</h3>", {
-              type: "success",
-            });
-          } catch (err) {
-            this.$toast.show(`<h3>Server returns error: ${err}</h3>`, {
-              type: "error",
-            });
-          }
-        }, 3000);
-      }
+          this.isLoading = false;
+          this.$toast.show("<h3>Movies were loaded!</h3>", {
+            type: "success",
+          });
+        } catch (err) {
+          this.$toast.show(`<h3>Server returns error: ${err}</h3>`, {
+            type: "error",
+          });
+        }
+      }, 3000);
     },
 
     deleteFilmsArray() {
@@ -234,7 +236,6 @@ export default {
   box-shadow: inset 0px 0px 15px 10px rgba(0, 0, 0, 0.5);
   padding: 25px;
   color: var(--vt-c-white);
-  font-family: Arial;
   text-align: center;
   font-weight: 900;
   margin: 10px;
@@ -284,6 +285,29 @@ export default {
 }
 
 .loader {
-  margin: 60px auto;
+	margin: 60px auto;
+}
+
+/* transition */
+
+.fade-enter-from {
+}
+
+.fade-enter-to {
+  z-index: 101;
+}
+
+.fade-leave-from {
+  z-index: 101;
+}
+.fade-leave-to {
+  z-index: 0;
+}
+
+.fade-enter-active {
+  transition: all 2s ease;
+}
+.fade-leave-active {
+  transition: all 1s ease;
 }
 </style>

@@ -37,7 +37,7 @@ export default {
   border-radius: 50%;
   cursor: pointer;
   border: 1px solid white;
-  z-index: 100;
+  z-index: 90;
 }
 
 .btn img {
