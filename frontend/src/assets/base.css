@@ -63,7 +63,6 @@ body {
   background: url("./bg/bg2.png") 0 0 /cover no-repeat fixed;
 	backdrop-filter: blur(8px);
 	min-width: 100vw;
-	/* min-height: 100vh; */
 }
 
 #app {

@@ -1,41 +1,35 @@
 <template>
   <div class="container-btn">
-    <button
-      class="btn"
-      @click="$emit('changeMode')"
-    >
+    <button class="btn" @click="$emit('changeMode')">
       <img :src="$store.state.isChanged ? left : right" />
     </button>
   </div>
 </template>
 
 <script>
-import joinRight from "../../assets/mode/join_right_red.png";
-import joinLeft from "../../assets/mode/join_left_green.png";
-
 export default {
   emits: ["changeMode"],
-  data() {
-    return {
-      right: joinRight,
-      left: joinLeft,
-    };
+  computed: {
+    right() {
+      return this.$store.state.joinRight;
+    },
+    left() {
+      return this.$store.state.joinLeft;
+    },
   },
 };
 </script>
 
 <style lang="css" scoped>
 .container-btn {
-	display:flex;
-	align-items: end;
-
+  display: flex;
+  align-items: end;
 }
 .btn {
   display: block;
   width: 64px;
   height: 64px;
-  padding: 3px 3px;
-  padding-bottom: 1px;
+  padding: 3px 4px;
   border-radius: 50%;
   cursor: pointer;
   border: 1px solid white;

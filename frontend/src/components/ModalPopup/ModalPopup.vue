@@ -13,26 +13,30 @@
       <section class="modal-body-1">
         <label for="number-1">Start the range of movies</label>
         <input
-          id="number-1"
+          id="modalNumberStart"
           type="number"
           placeholder="From 1 to 85"
-          v-model="numberStart"
+          v-model="this.$store.state.modalNumberStart"
           min="1"
           max="85"
         />
       </section>
       <section class="modal-body-2">
-        <label for="number-2">End the range of movies</label>
+        <label for="modalNumberEnd">End the range of movies</label>
         <input
-          id="number-2"
+          id="modalNumberEnd"
           type="number"
           placeholder="From 2 to 86"
-          v-model="numberEnd"
+          v-model="this.$store.state.modalNumberEnd"
           min="2"
           max="86"
         />
       </section>
-      <button type="button" class="btn-go" @click="go" aria-label="Close modal">
+      <button
+				type="button"
+				class="btn-go"
+				@click="go"
+				aria-label="Close modal">
         GO!
       </button>
     </div>
@@ -43,27 +47,20 @@
 export default {
   name: "ModalPopup",
   emits: ["goModalPopup", "closeModalPopup"],
-  data() {
-    return {
-      numberStart: 0,
-      numberEnd: 0,
-    };
-  },
-
   methods: {
     go() {
-      if (this.numberStart <= 0 || this.numberEnd <= 0) {
+      if (this.$store.state.modalNumberStart <= 0 || this.$store.state.modalNumberEnd <= 0) {
         this.$toast.show("<h3>The numbers must be greater than zero</h3>", {
           type: "error",
         });
-      } else if (this.numberStart > 85 || this.numberEnd > 86) {
+      } else if (this.$store.state.modalNumberStart > 85 || this.$store.state.modalNumberEnd > 86) {
         this.$toast.show(
           "<h3>You have exceeded the maximum values of the numbers!</h3>",
           {
             type: "error",
           }
         );
-      } else if (this.numberStart >= this.numberEnd) {
+      } else if (this.$store.state.modalNumberStart >= this.$store.state.modalNumberEnd) {
         this.$toast.show(
           "<h3>The initial value cannot be greater than or equal to the final value of the range!</h3>",
           {
@@ -71,7 +68,7 @@ export default {
           }
         );
       } else {
-        this.$emit("goModalPopup", this.numberStart, this.numberEnd);
+        this.$emit("goModalPopup", this.$store.state.modalNumberStart, this.$store.state.modalNumberEnd);
       }
     },
   },
@@ -94,7 +91,7 @@ export default {
 
 .modal-window {
   position: relative;
-  background: rgba(241, 251, 249, .8);
+  background: rgba(241, 251, 249, 0.8);
   overflow-x: auto;
   display: flex;
   flex-direction: column;

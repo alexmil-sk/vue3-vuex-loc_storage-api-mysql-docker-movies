@@ -1,7 +1,7 @@
 <template>
   <div class="btn-block_chosen">
     <ButtonUi @action="$emit('deleteChosenMoviesArray')" :color="'btn-block_delete'">
-      <img :src="deleteIcon" />
+      <img :src="$store.state.deleteIcon" />
     </ButtonUi>
   </div>
 </template>
@@ -11,7 +11,6 @@ import ButtonUi from "../UI/ButtonUi.vue";
 
 export default {
   components: { ButtonUi },
-  inject: ["deleteIcon"],
   emits: ["deleteChosenMoviesArray"],
 };
 </script>

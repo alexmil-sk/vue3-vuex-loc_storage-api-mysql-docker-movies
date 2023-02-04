@@ -3,9 +3,9 @@
     <div class="movie-items_wrapper_cat">
       <div v-for="movie in chosenMovies" :key="movie.id">
         <ChosenItem
-					:movie="movie"
-					@deleteChosenItem="$emit('deleteChosenItem', movie.id)"
-				/>
+          :movie="movie"
+          @deleteChosenItem="$emit('deleteChosenItem', movie.id)"
+        />
       </div>
     </div>
   </div>
@@ -16,8 +16,10 @@ import ChosenItem from "./ChosenItem/ChosenItem.vue";
 
 export default {
   components: { ChosenItem },
-	props: {
-		chosenMovies: Array,
+	computed: {
+		chosenMovies() {
+			return this.$store.state.chosenMovies;
+		}
 	},
 	emits: ['deleteChosenItem']
 };

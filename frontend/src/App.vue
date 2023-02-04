@@ -60,8 +60,6 @@
 </template>
 
 <script>
-import delete_icon from "./assets/icons/delete.png";
-import download_icon from "./assets/icons/download.png";
 import ModePanel from "./components/ModePanel/ModePanel.vue";
 import FilmsArray from "./components/Films/FilmsArray/FilmsArray.vue";
 import ChosenArray from "./components/Films/ChosenArray/ChosenArray.vue";
@@ -83,53 +81,40 @@ export default {
 		BtnBlockChosen,
 		TheNavbar
   },
-  data() {
-    return {
-      isLoading: false,
-      isOpenModal: false,
-      films: [],
-      chosenMovies: [],
-    };
-  },
-  provide() {
-    return {
-      deleteIcon: delete_icon,
-      downloadIcon: download_icon,
-    };
-  },
+  
   mounted() {
     this.$store.state.isChanged = JSON.parse(localStorage.getItem("isChanged"));
-    this.films = JSON.parse(localStorage.getItem("films"));
-		this.chosenMovies = JSON.parse(localStorage.getItem("chosenMovies"));
+    this.$store.state.films = JSON.parse(localStorage.getItem("films"));
+		this.$store.state.chosenMovies = JSON.parse(localStorage.getItem("chosenMovies"));
   },
   methods: {
     changeMode() {
 			this.$store.state.isChanged = !this.$store.state.isChanged
 
-      this.$toast.show("<h3>Mode was changed!</h3>", {
-        type: "info",
-      });
+			this.$toast.show("<h3>Mode was changed!</h3>", {
+				type: "info",
+			});
     },
 
     openModalPopup() {
-      this.isOpenModal = true;
+      this.$store.state.isOpenModal = true;
     },
     closeModalPopup() {
-      this.isOpenModal = false;
+      this.$store.state.isOpenModal = false;
     },
     goModalPopup(start, end) {
-      this.isOpenModal = false;
+      this.$store.state.isOpenModal = false;
 
-      this.isLoading = true;
+      this.$store.state.isLoading = true;
       this.$toast.show("<h3>Loading is in progress...</h3>", {
         type: "info",
       });
 
       setTimeout(async () => {
         try {
-          this.films = await fetchMovies(start, end);
+          this.$store.state.films = await fetchMovies(start, end);
 
-          this.isLoading = false;
+          this.$store.state.isLoading = false;
           this.$toast.show("<h3>Movies were loaded!</h3>", {
             type: "success",
           });
@@ -142,22 +127,22 @@ export default {
     },
 
     deleteFilmsArray() {
-      if (this.films.length) {
-        this.films = [];
+      if (this.$store.state.films.length) {
+        this.$store.state.films = [];
         this.$toast.show("<h3>Movies were deleted from catalog...</h3>", {
-          type: "warning",
+          type: "attention",
         });
       }
     },
     deleteChosenMoviesArray() {
-      this.chosenMovies = [];
+      this.$store.state.chosenMovies = [];
       this.$toast.show("<h3>Selected Movies were deleted...</h3>", {
-        type: "warning",
+        type: "attention",
       });
     },
     chooseFilm(id) {
       const selectedMovie = this.films.find((item) => item.id === id);
-      const isExist = this.chosenMovies.find((item) => item.id === id);
+      const isExist = this.$store.state.chosenMovies.find((item) => item.id === id);
 
       if (isExist) {
         setTimeout(() => {
@@ -169,10 +154,10 @@ export default {
           );
         }, 500);
       } else {
-        this.chosenMovies = this.chosenMovies.concat(
-          this.films.filter((item) => item.id === id)
+        this.$store.state.chosenMovies = this.$store.state.chosenMovies.concat(
+          this.$store.state.films.filter((item) => item.id === id)
         );
-        this.films = this.films.filter((item) => item.id !== id);
+        this.$store.state.films = this.$store.state.films.filter((item) => item.id !== id);
 
         setTimeout(() => {
           this.$toast.show(
@@ -185,14 +170,14 @@ export default {
       }
     },
     deleteChosenItem(id) {
-      const selectedMovie = this.chosenMovies.find((item) => item.id === id);
-      const isExist = this.films.find((item) => item.id === id);
+      const selectedMovie = this.$store.state.chosenMovies.find((item) => item.id === id);
+      const isExist = this.$store.state.films.find((item) => item.id === id);
 
-      this.chosenMovies = this.chosenMovies.filter((item) => item.id !== id);
+      this.$store.state.chosenMovies = this.$store.state.chosenMovies.filter((item) => item.id !== id);
 
       if (!isExist) {
-        this.films.push(selectedMovie);
-        localStorage.setItem("films", JSON.stringify(this.films));
+        this.$store.state.films.push(selectedMovie);
+        localStorage.setItem("films", JSON.stringify(this.$store.state.films));
 
         setTimeout(() => {
           this.$toast.show(
@@ -208,7 +193,19 @@ export default {
 	computed: {
 		isChanged() {
       return this.$store.state.isChanged;
-    },
+		},
+		isLoading() {
+      return this.$store.state.isLoading;
+		},
+		isOpenModal() {
+			return this.$store.state.isOpenModal;
+		},
+		films() {
+			return this.$store.state.films;
+		},
+		chosenMovies() {
+			return this.$store.state.chosenMovies;
+		}
 	},
   watch: {
     isChanged(newName) {
@@ -298,7 +295,7 @@ export default {
 
 .chosenMovies-enter-active,
 .chosenMovies-leave-active {
-  transition: opacity 1500ms ease;
+  transition: opacity 500ms ease;
 }
 
 .chosenMovies-enter-from,

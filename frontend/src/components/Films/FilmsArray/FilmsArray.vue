@@ -2,10 +2,7 @@
   <div class="film-items_wrapper">
     <div class="film-items_wrapper_cat">
       <div v-for="film in films" :key="film.id">
-        <FilmItem
-          :film="film"
-          @click="$emit('chooseFilm', film.id)"
-        />
+        <FilmItem :film="film" @click="$emit('chooseFilm', film.id)" />
       </div>
     </div>
   </div>
@@ -15,9 +12,11 @@ import FilmItem from "./FilmItem/FilmItem.vue";
 
 export default {
   components: { FilmItem },
-	props: {
-		films: Array,
-	},
+  computed: {
+    films() {
+      return this.$store.state.films;
+    },
+  },
   emits: ["chooseFilm"],
   data() {
     return {};
