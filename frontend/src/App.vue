@@ -11,11 +11,14 @@
 
     <div class="wrapper">
       <div class="header">
-				<TheNavbar />
-        <ModePanel :isChanged="isChanged" @changeMode="changeMode" />
+        <TheNavbar />
+        <ModePanel @changeMode="changeMode" />
       </div>
       <div class="container">
-        <div class="table" :class="isChanged ? 'bg-green' : 'bg-red'">
+        <div
+          class="table"
+          :class="$store.state.isChanged ? 'bg-green' : 'bg-red'"
+        >
           <BtnBlockFetch
             @openModalPopup="openModalPopup"
             @deleteFilmsArray="deleteFilmsArray"
@@ -30,17 +33,13 @@
             </h1>
             <h1 v-else>Load movies...</h1>
 
-            <FilmsArray
-              :films="films"
-              :isChanged="isChanged"
-              @chooseFilm="chooseFilm"
-            />
+            <FilmsArray :films="films" @chooseFilm="chooseFilm" />
           </div>
         </div>
         <Transition name="chosenMovies">
           <div
             class="table"
-            :class="isChanged ? 'bg-red' : 'bg-green'"
+            :class="$store.state.isChanged ? 'bg-red' : 'bg-green'"
             v-if="chosenMovies.length"
           >
             <BtnBlockChosen
@@ -51,7 +50,6 @@
               <ChosenArray
                 :chosenMovies="chosenMovies"
                 @deleteChosenItem="deleteChosenItem"
-								:isChanged="isChanged"
               />
             </div>
           </div>
@@ -88,7 +86,6 @@ export default {
   data() {
     return {
       isLoading: false,
-      isChanged: false,
       isOpenModal: false,
       films: [],
       chosenMovies: [],
@@ -101,13 +98,13 @@ export default {
     };
   },
   mounted() {
-    this.isChanged = JSON.parse(localStorage.getItem("isChanged"));
+    this.$store.state.isChanged = JSON.parse(localStorage.getItem("isChanged"));
     this.films = JSON.parse(localStorage.getItem("films"));
-    this.chosenMovies = JSON.parse(localStorage.getItem("chosenMovies"));
+		this.chosenMovies = JSON.parse(localStorage.getItem("chosenMovies"));
   },
   methods: {
     changeMode() {
-      this.isChanged = !this.isChanged;
+			this.$store.state.isChanged = !this.$store.state.isChanged
 
       this.$toast.show("<h3>Mode was changed!</h3>", {
         type: "info",
@@ -207,7 +204,12 @@ export default {
         }, 500);
       }
     },
-  },
+	},
+	computed: {
+		isChanged() {
+      return this.$store.state.isChanged;
+    },
+	},
   watch: {
     isChanged(newName) {
       localStorage.isChanged = newName;
@@ -236,10 +238,10 @@ export default {
 }
 
 .header {
-	display: flex;
-	justify-content: space-between;
-	padding: 5px 45px;
-	margin: 0 auto 35px;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 45px;
+  margin: 0 auto 35px;
 }
 .table {
   min-height: 300px;

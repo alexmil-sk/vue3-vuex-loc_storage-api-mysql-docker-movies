@@ -2,10 +2,9 @@
   <div class="container-btn">
     <button
       class="btn"
-      :class="isChanged ? 'light' : 'dark'"
       @click="$emit('changeMode')"
     >
-      <img :src="isChanged ? left : right" />
+      <img :src="$store.state.isChanged ? left : right" />
     </button>
   </div>
 </template>
@@ -15,9 +14,6 @@ import joinRight from "../../assets/mode/join_right_red.png";
 import joinLeft from "../../assets/mode/join_left_green.png";
 
 export default {
-  props: {
-    isChanged: Boolean,
-  },
   emits: ["changeMode"],
   data() {
     return {
@@ -38,7 +34,7 @@ export default {
   display: block;
   width: 64px;
   height: 64px;
-  padding: 3px 8px;
+  padding: 3px 3px;
   padding-bottom: 1px;
   border-radius: 50%;
   cursor: pointer;

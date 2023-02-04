@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :class="isChanged ? 'bg-for-red' : 'bg-for-green'">
+  <div class="card" :class="$store.state.isChanged ? 'bg-for-red' : 'bg-for-green'">
     <img :src="movie.posterURL" width="100" height="156" :alt="movie.title" />
     <button class="del-btn" @click="$emit('deleteChosenItem', movie.id)">
       &times;
@@ -12,7 +12,6 @@
 export default {
 	props: {
 		movie: Object,
-		isChanged: Boolean
 	},
 };
 </script>

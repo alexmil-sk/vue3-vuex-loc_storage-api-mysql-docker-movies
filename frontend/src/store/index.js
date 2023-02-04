@@ -5,6 +5,9 @@ const store = createStore({
 		return {
 			isChanged: false,
 		}
+	},
+	mutations: {
+		
 	}
 });
 

@@ -5,7 +5,6 @@
         <FilmItem
           :film="film"
           @click="$emit('chooseFilm', film.id)"
-					:isChanged="isChanged"
         />
       </div>
     </div>
@@ -18,7 +17,6 @@ export default {
   components: { FilmItem },
 	props: {
 		films: Array,
-		isChanged: Boolean
 	},
   emits: ["chooseFilm"],
   data() {

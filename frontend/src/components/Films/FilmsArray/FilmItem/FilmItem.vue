@@ -1,7 +1,7 @@
 <template>
   <div
 		class="card"
-		:class="isChanged ? 'bg-for-green' : 'bg-for-red'"
+		:class="$store.state.isChanged ? 'bg-for-green' : 'bg-for-red'"
 	>
     <img
 			:src="film.posterURL"
@@ -16,7 +16,6 @@
 export default {
 	props: {
 		film: Object,
-		isChanged: Boolean
 	},
 };
 </script>

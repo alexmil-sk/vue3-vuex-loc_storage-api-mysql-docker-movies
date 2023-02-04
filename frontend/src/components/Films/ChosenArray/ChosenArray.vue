@@ -5,7 +5,6 @@
         <ChosenItem
 					:movie="movie"
 					@deleteChosenItem="$emit('deleteChosenItem', movie.id)"
-					:isChanged="isChanged"
 				/>
       </div>
     </div>
@@ -19,7 +18,6 @@ export default {
   components: { ChosenItem },
 	props: {
 		chosenMovies: Array,
-		isChanged: Boolean
 	},
 	emits: ['deleteChosenItem']
 };
