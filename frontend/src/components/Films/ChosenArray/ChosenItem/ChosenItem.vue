@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :class="$store.state.isChanged ? 'bg-for-red' : 'bg-for-green'">
+  <div class="card" :class="isChanged ? 'bg-for-red' : 'bg-for-green'">
     <img :src="movie.posterURL" width="100" height="156" :alt="movie.title" />
     <button class="del-btn" @click="deleteItem(movie)">
       &times;
@@ -26,7 +26,12 @@ export default {
         );
       }, 600);
 		}
-	}
+	},
+	computed: {
+		isChanged() {
+			return this.$store.getters.isChanged;
+		}
+	},
 };
 </script>
 
