@@ -166,19 +166,19 @@ export default {
   },
   computed: {
     isChanged() {
-      return this.$store.state.isChanged;
+      return this.$store.getters.isChanged;
     },
     isLoading() {
-      return this.$store.state.isLoading;
+      return this.$store.getters.isLoading;
     },
     isOpenModal() {
-      return this.$store.state.isOpenModal;
+      return this.$store.getters.isOpenModal;
     },
     films() {
-      return this.$store.state.films;
+      return this.$store.getters.films;
     },
     chosenMovies() {
-      return this.$store.state.chosenMovies;
+      return this.$store.getters.chosenMovies;
 		}
   },
   watch: {
