@@ -116,7 +116,7 @@ export default {
 
 		chooseFilm(id) {
       const selectedMovie = this.films.find((item) => item.id === id);
-      const isExist = this.$store.state.chosenMovies.find((item) => item.id === id);
+      const isExist = this.chosenMovies.find((item) => item.id === id);
 
 			if (isExist) {
         setTimeout(() => {
@@ -144,8 +144,8 @@ export default {
       }
     },
     deleteChosenItem(id) {
-      const selectedMovie = this.$store.state.chosenMovies.find((item) => item.id === id);
-      const isExist = this.$store.state.films.find((item) => item.id === id);
+      const selectedMovie = this.chosenMovies.find((item) => item.id === id);
+      const isExist = this.films.find((item) => item.id === id);
 
       this.$store.state.chosenMovies = this.$store.state.chosenMovies.filter((item) => item.id !== id);
 

@@ -72,9 +72,7 @@ export default {
             type: "error",
           }
         );
-			} else {
-
-				console.log(this.startNumber, this.endNumber);
+      } else {
         this.$emit("goModalPopup", this.startNumber, this.endNumber);
       }
     },

@@ -26,6 +26,9 @@ export default {
 	methods: {
 		change() {
 			this.$store.commit('changeMode');
+			this.$toast.show("<h3>Mode was changed!</h3>", {
+        type: "info",
+      });
 		}
 	}
 };
