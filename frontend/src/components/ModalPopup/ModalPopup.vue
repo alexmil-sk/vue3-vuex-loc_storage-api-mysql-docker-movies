@@ -42,7 +42,6 @@
 <script>
 export default {
   name: "ModalPopup",
-  emits: ["goModalPopup"],
   data() {
     return {
       startNumber: this.$store.getters.modalNumberStart,
@@ -53,12 +52,12 @@ export default {
     close() {
       this.$store.commit("closeModalPopup");
     },
-		go() {
-			if (this.startNumber == null || this.endNumber == null) {
-				this.$toast.show("<h3>All fields must be filled!</h3>", {
+    go() {
+      if (this.startNumber == null || this.endNumber == null) {
+        this.$toast.show("<h3>All fields must be filled!</h3>", {
           type: "error",
         });
-			}else if (this.startNumber <= 0 || this.endNumber <= 0) {
+      } else if (this.startNumber <= 0 || this.endNumber <= 0) {
         this.$toast.show("<h3>The numbers must be greater than zero!</h3>", {
           type: "error",
         });
@@ -76,8 +75,30 @@ export default {
             type: "error",
           }
         );
-      } else {
-        this.$emit("goModalPopup", this.startNumber, this.endNumber);
+			} else {
+				
+        this.$store.commit("goModalPopup");
+
+        this.$toast.show("<h3>Loading is in progress...</h3>", {
+          type: "info",
+        });
+
+        setTimeout(async () => {
+          try {
+            this.$store.dispatch("fetchMoviesAsync", {
+              start: this.startNumber,
+              end: this.endNumber,
+            });
+
+            this.$toast.show("<h3>Movies were loaded!</h3>", {
+              type: "success",
+            });
+          } catch (err) {
+            this.$toast.show(`<h3>Server returns error: ${err}</h3>`, {
+              type: "error",
+            });
+          }
+        }, 3000);
       }
     },
   },

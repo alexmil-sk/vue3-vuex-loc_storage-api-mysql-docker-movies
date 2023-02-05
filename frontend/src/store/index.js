@@ -75,6 +75,13 @@ const store = createStore({
 		fetchMoviesMutation(state, payload) {
 			fetchMovies(payload.start, payload.end)
 				.then(res => state.films = res)
+		},
+		chooseFilm(state, payload) {
+			state.chosenMovies = state.chosenMovies.concat(
+				state.films.filter((item) => item.id === payload)
+			);
+			state.films = state.films.filter(
+				(item) => item.id !== payload);
 		}
 	},
 	actions: {

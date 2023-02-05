@@ -2,19 +2,19 @@
   <div>
     <Transition name="fade">
       <div v-if="$store.getters.isOpenModal">
-        <ModalPopup @goModalPopup="goModalPopup" />
+        <ModalPopup />
       </div>
     </Transition>
 
     <div class="wrapper">
       <div class="header">
         <TheNavbar />
-        <ModePanel @changeMode="changeMode" />
+        <ModePanel />
       </div>
       <div class="container">
         <div
           class="table table_fetch"
-          :class="$store.state.isChanged ? 'bg-green' : 'bg-red'"
+          :class="isChanged ? 'bg-green' : 'bg-red'"
         >
           <BtnBlockFetch />
           <div v-if="isLoading" class="loader">
@@ -27,13 +27,13 @@
             </h1>
             <h1 v-else>Load movies...</h1>
 
-            <FilmsArray :films="films" @chooseFilm="chooseFilm" />
+            <FilmsArray />
           </div>
         </div>
         <Transition name="chosen">
           <div
             class="table table_choose"
-            :class="$store.state.isChanged ? 'bg-red' : 'bg-green'"
+            :class="isChanged ? 'bg-red' : 'bg-green'"
             v-if="chosenMovies.length"
           >
             <BtnBlockChosen />
@@ -85,59 +85,6 @@ export default {
         type: "info",
       });
     },
-
-    goModalPopup(start, end) {
-      this.$store.commit('goModalPopup');
-
-      this.$toast.show("<h3>Loading is in progress...</h3>", {
-        type: "info",
-      });
-
-      setTimeout(async () => {
-        try {
-          this.$store.dispatch("fetchMoviesAsync", { start, end });
-
-          this.$toast.show("<h3>Movies were loaded!</h3>", {
-            type: "success",
-          });
-        } catch (err) {
-          this.$toast.show(`<h3>Server returns error: ${err}</h3>`, {
-            type: "error",
-          });
-        }
-      }, 3000);
-    },
-    chooseFilm(id) {
-      const selectedMovie = this.films.find((item) => item.id === id);
-      const isExist = this.chosenMovies.find((item) => item.id === id);
-
-      if (isExist) {
-        setTimeout(() => {
-          this.$toast.show(
-            `<h3>The Movie ${selectedMovie.title} already exist!</h3>`,
-            {
-              type: "error",
-            }
-          );
-        }, 500);
-      } else {
-        this.$store.state.chosenMovies = this.$store.state.chosenMovies.concat(
-          this.$store.state.films.filter((item) => item.id === id)
-        );
-        this.$store.state.films = this.$store.state.films.filter(
-          (item) => item.id !== id
-        );
-
-        setTimeout(() => {
-          this.$toast.show(
-            `<h3>The Movie ${selectedMovie.title} was selected!</h3>`,
-            {
-              type: "default",
-            }
-          );
-        }, 500);
-      }
-    },
   },
   computed: {
     isChanged() {
@@ -150,7 +97,7 @@ export default {
       return this.$store.getters.isOpenModal;
     },
     films() {
-      return this.$store.state.films;
+      return this.$store.getters.films;
     },
     chosenMovies() {
       return this.$store.getters.chosenMovies;
