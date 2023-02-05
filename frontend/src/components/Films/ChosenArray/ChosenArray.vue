@@ -4,7 +4,7 @@
       <div v-for="movie in chosenMovies" :key="movie.id">
         <ChosenItem
           :movie="movie"
-          @deleteChosenItem="$emit('deleteChosenItem', movie.id)"
+          @deleteChosenItem="$emit('deleteChosenItem', movie)"
         />
       </div>
     </div>

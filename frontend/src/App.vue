@@ -39,9 +39,7 @@
             <BtnBlockChosen />
             <div>
               <h1>Selected Movies</h1>
-              <ChosenArray
-                @deleteChosenItem="deleteChosenItem"
-              />
+              <ChosenArray @deleteChosenItem="deleteChosenItem" />
             </div>
           </div>
         </Transition>
@@ -113,12 +111,11 @@ export default {
         }
       }, 3000);
     },
-
-		chooseFilm(id) {
+    chooseFilm(id) {
       const selectedMovie = this.films.find((item) => item.id === id);
       const isExist = this.chosenMovies.find((item) => item.id === id);
 
-			if (isExist) {
+      if (isExist) {
         setTimeout(() => {
           this.$toast.show(
             `<h3>The Movie ${selectedMovie.title} already exist!</h3>`,
@@ -127,11 +124,13 @@ export default {
             }
           );
         }, 500);
-			} else {
+      } else {
         this.$store.state.chosenMovies = this.$store.state.chosenMovies.concat(
           this.$store.state.films.filter((item) => item.id === id)
         );
-        this.$store.state.films = this.$store.state.films.filter((item) => item.id !== id);
+        this.$store.state.films = this.$store.state.films.filter(
+          (item) => item.id !== id
+        );
 
         setTimeout(() => {
           this.$toast.show(
@@ -143,25 +142,15 @@ export default {
         }, 500);
       }
     },
-    deleteChosenItem(id) {
-      const selectedMovie = this.chosenMovies.find((item) => item.id === id);
-      const isExist = this.films.find((item) => item.id === id);
-
-      this.$store.state.chosenMovies = this.$store.state.chosenMovies.filter((item) => item.id !== id);
-
-      if (!isExist) {
-        this.$store.state.films.push(selectedMovie);
-        localStorage.setItem("films", JSON.stringify(this.$store.state.films));
-
-        setTimeout(() => {
-          this.$toast.show(
-            `<h3>Movie ${selectedMovie.title} was deleted from selected!</h3>`,
-            {
-              type: "warning",
-            }
-          );
-        }, 500);
-      }
+		deleteChosenItem(movie) {
+			
+      this.$store.commit("deleteChosenItem", movie.id);
+      this.$toast.show(
+        `<h3>Movie ${movie.title} was deleted from selected!</h3>`,
+        {
+          type: "warning",
+        }
+      );
     },
   },
   computed: {
@@ -179,7 +168,7 @@ export default {
     },
     chosenMovies() {
       return this.$store.getters.chosenMovies;
-		}
+    },
   },
   watch: {
     isChanged(newName) {
@@ -187,10 +176,10 @@ export default {
     },
 
     films(newArray) {
-      localStorage.setItem("films", JSON.stringify(newArray));
+      localStorage.setItem("films", JSON.stringify(newArray || []));
     },
     chosenMovies(newArray) {
-      localStorage.setItem("chosenMovies", JSON.stringify(newArray));
+      localStorage.setItem("chosenMovies", JSON.stringify(newArray || []));
     },
   },
 };
