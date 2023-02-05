@@ -88,10 +88,7 @@ export default {
     },
 
     goModalPopup(start, end) {
-      //this.$store.commit("closeModalPopup");
-      //this.$store.commit("isLoading");
-
-      this.$store.dispatch('goModalPopup');
+      this.$store.commit('goModalPopup');
 
       this.$toast.show("<h3>Loading is in progress...</h3>", {
         type: "info",

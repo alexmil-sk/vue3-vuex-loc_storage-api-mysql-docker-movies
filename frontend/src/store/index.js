@@ -67,16 +67,16 @@ const store = createStore({
 				localStorage.setItem("films", JSON.stringify(state.films));
 			}
 		},
+		goModalPopup() {
+			this.commit('closeModalPopup');
+			this.commit('isLoading');
+		},
 		fetchMoviesMutation(state, payload) {
 			fetchMovies(payload.start, payload.end)
-			.then(res => state.films = res)
+				.then(res => state.films = res)
 		}
 	},
 	actions: {
-		goModalPopup(context) {
-			context.commit('closeModalPopup');
-			context.commit('isLoading');
-		},
 		fetchMoviesAsync(context, payload) {
 			context.commit('fetchMoviesMutation', payload);
 		}
