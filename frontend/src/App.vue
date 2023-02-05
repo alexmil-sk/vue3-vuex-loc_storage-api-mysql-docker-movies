@@ -98,8 +98,6 @@ export default {
         try {
           this.$store.dispatch("fetchMoviesAsync", { start, end });
 
-          this.$store.commit("notIsLoading");
-
           this.$toast.show("<h3>Movies were loaded!</h3>", {
             type: "success",
           });

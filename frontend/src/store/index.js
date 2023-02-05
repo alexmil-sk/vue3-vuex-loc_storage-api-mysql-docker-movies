@@ -67,7 +67,8 @@ const store = createStore({
 				localStorage.setItem("films", JSON.stringify(state.films));
 			}
 		},
-		goModalPopup() {
+		goModalPopup(state) {
+			state.films = [];
 			this.commit('closeModalPopup');
 			this.commit('isLoading');
 		},
@@ -79,6 +80,7 @@ const store = createStore({
 	actions: {
 		fetchMoviesAsync(context, payload) {
 			context.commit('fetchMoviesMutation', payload);
+			context.commit('notIsLoading');
 		}
 	},
 	getters: {
