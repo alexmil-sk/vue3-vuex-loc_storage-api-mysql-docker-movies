@@ -53,9 +53,13 @@ export default {
     close() {
       this.$store.commit("closeModalPopup");
     },
-    go() {
-      if (this.startNumber <= 0 || this.endNumber <= 0) {
-        this.$toast.show("<h3>The numbers must be greater than zero</h3>", {
+		go() {
+			if (this.startNumber == null || this.endNumber == null) {
+				this.$toast.show("<h3>All fields must be filled!</h3>", {
+          type: "error",
+        });
+			}else if (this.startNumber <= 0 || this.endNumber <= 0) {
+        this.$toast.show("<h3>The numbers must be greater than zero!</h3>", {
           type: "error",
         });
       } else if (this.startNumber > 85 || this.endNumber > 86) {

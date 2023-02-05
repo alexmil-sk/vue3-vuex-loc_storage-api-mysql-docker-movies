@@ -60,9 +60,9 @@
 }
 
 body {
-  background: url("./bg/bg.png") 0 0 /cover no-repeat fixed;
-	backdrop-filter: blur(8px);
 	min-width: 100vw;
+	background: url("./bg/bg.png") 0 0 /100% no-repeat fixed;
+	backdrop-filter: blur(8px);
 }
 
 #app {

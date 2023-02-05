@@ -34,7 +34,7 @@ export default {
 .movie-items_wrapper_cat {
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 }
 
 @media (max-width: 1090px) {

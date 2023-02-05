@@ -13,7 +13,7 @@
       </div>
       <div class="container">
         <div
-          class="table"
+          class="table table_fetch"
           :class="$store.state.isChanged ? 'bg-green' : 'bg-red'"
         >
           <BtnBlockFetch />
@@ -32,7 +32,7 @@
         </div>
         <Transition name="chosen">
           <div
-            class="table"
+            class="table table_choose"
             :class="$store.state.isChanged ? 'bg-red' : 'bg-green'"
             v-if="chosenMovies.length"
           >
@@ -88,8 +88,10 @@ export default {
     },
 
     goModalPopup(start, end) {
-      this.$store.commit("closeModalPopup");
-      this.$store.commit("isLoading");
+      //this.$store.commit("closeModalPopup");
+      //this.$store.commit("isLoading");
+
+      this.$store.dispatch('goModalPopup');
 
       this.$toast.show("<h3>Loading is in progress...</h3>", {
         type: "info",
@@ -97,7 +99,7 @@ export default {
 
       setTimeout(async () => {
         try {
-          this.$store.state.films = await fetchMovies(start, end);
+          this.$store.dispatch("fetchMoviesAsync", { start, end });
 
           this.$store.commit("notIsLoading");
 
@@ -154,7 +156,7 @@ export default {
       return this.$store.getters.isOpenModal;
     },
     films() {
-      return this.$store.getters.films;
+      return this.$store.state.films;
     },
     chosenMovies() {
       return this.$store.getters.chosenMovies;
@@ -177,14 +179,14 @@ export default {
 
 <style lang="css" scoped>
 .container {
+	display: flex;
   min-height: 300px;
   width: 100%;
-  border: 5px solid rgba(109, 64, 8, 0.9);
   border: 5px solid rgba(255, 255, 255, 0.7);
   border-radius: 40px;
-  box-shadow: 0px 0px 15px 20px rgba(109, 64, 8, 0.5);
+  /* box-shadow: 0px 0px 15px 20px rgba(31,41,55, 1); */
+  box-shadow: 0px 0px 10px 15px rgba(225, 229, 234, .3);
   padding: 25px;
-  /* background: rgba(251, 4, 20, 1); */
   background-color: #1f2937;
 }
 
@@ -195,7 +197,9 @@ export default {
   margin: 0 auto 35px;
 }
 .table {
-  min-height: 300px;
+	display: flex;
+	flex-direction: column;
+  min-height: 430px;
   border-radius: 25px;
   border: 3px solid rgba(255, 255, 255, 0.8);
   box-shadow: inset 0px 0px 15px 10px rgba(0, 0, 0, 0.5);
@@ -206,6 +210,12 @@ export default {
   margin: 10px;
 }
 
+.table_fetch {
+	flex: 1 1 70%;
+}
+.table_choose {
+	flex: 1 1 30%;
+}
 .bg-green {
   background: url("./assets/images/green_background-2.png") repeat;
   transition: 600ms;

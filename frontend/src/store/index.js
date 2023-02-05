@@ -6,6 +6,10 @@ import download_icon from "../assets/icons/download.png";
 import join_right from "../assets/mode/join_right_red.png";
 import join_left from "../assets/mode/join_left_green.png";
 import logo from "../assets/logo/logo.png";
+import {
+	fetchMovies
+} from "../utils/fetchMovies.js";
+
 
 
 const store = createStore({
@@ -35,11 +39,11 @@ const store = createStore({
 		changeMode(state) {
 			state.isChanged = !state.isChanged;
 		},
-		closeModalPopup(state) {
-			state.isOpenModal = false;
-		},
 		openModalPopup(state) {
 			state.isOpenModal = true;
+		},
+		closeModalPopup(state) {
+			state.isOpenModal = false;
 		},
 		deleteFilmsArray(state) {
 			state.films = [];
@@ -62,6 +66,19 @@ const store = createStore({
 				state.films.push(selectedMovie);
 				localStorage.setItem("films", JSON.stringify(state.films));
 			}
+		},
+		fetchMoviesMutation(state, payload) {
+			fetchMovies(payload.start, payload.end)
+			.then(res => state.films = res)
+		}
+	},
+	actions: {
+		goModalPopup(context) {
+			context.commit('closeModalPopup');
+			context.commit('isLoading');
+		},
+		fetchMoviesAsync(context, payload) {
+			context.commit('fetchMoviesMutation', payload);
 		}
 	},
 	getters: {
