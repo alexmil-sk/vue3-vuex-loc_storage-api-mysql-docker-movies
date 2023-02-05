@@ -1,6 +1,6 @@
 <template>
   <div class="btn-block_chosen">
-    <ButtonUi @action="$emit('deleteChosenMoviesArray')" :color="'btn-block_delete'">
+    <ButtonUi @action="clear" :color="'btn-block_delete'">
       <img :src="$store.state.deleteIcon" />
     </ButtonUi>
   </div>
@@ -10,11 +10,22 @@
 import ButtonUi from "../UI/ButtonUi.vue";
 
 export default {
-  components: { ButtonUi },
-  emits: ["deleteChosenMoviesArray"],
-};
+	name: "BtnBlockChosen",
+	components: { ButtonUi },
+	methods: {
+		clear() {
+			if (this.$store.getters.chosenMovies.length) {
+				this.$store.commit('deleteChosenMoviesArray');
+				this.$toast.show("<h3>Selected Movies were deleted...</h3>", {
+					type: "attention",
+				});
+			}
+		}
+	}
+}
 </script>
-<style lang="css">
+
+<style lang="css" scoped>
 .btn-block_chosen {
   display: flex;
   justify-content: space-between;

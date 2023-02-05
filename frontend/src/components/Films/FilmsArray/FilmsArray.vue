@@ -11,16 +11,14 @@
 import FilmItem from "./FilmItem/FilmItem.vue";
 
 export default {
+	name: "FilmsArray",
   components: { FilmItem },
-  computed: {
-    films() {
+	computed: {
+		films() {
       return this.$store.state.films;
     },
   },
-  emits: ["chooseFilm"],
-  data() {
-    return {};
-  },
+	emits: ["chooseFilm"],
 };
 </script>
 

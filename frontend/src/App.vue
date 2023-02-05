@@ -1,11 +1,8 @@
 <template>
   <div>
     <Transition name="fade">
-      <div v-if="isOpenModal">
-        <ModalPopup
-          @goModalPopup="goModalPopup"
-          @closeModalPopup="closeModalPopup"
-        />
+      <div v-if="$store.getters.isOpenModal">
+        <ModalPopup @goModalPopup="goModalPopup" />
       </div>
     </Transition>
 
@@ -19,10 +16,7 @@
           class="table"
           :class="$store.state.isChanged ? 'bg-green' : 'bg-red'"
         >
-          <BtnBlockFetch
-            @openModalPopup="openModalPopup"
-            @deleteFilmsArray="deleteFilmsArray"
-          />
+          <BtnBlockFetch />
           <div v-if="isLoading" class="loader">
             <LoaderComp />
           </div>
@@ -36,19 +30,16 @@
             <FilmsArray :films="films" @chooseFilm="chooseFilm" />
           </div>
         </div>
-        <Transition name="chosenMovies">
+        <Transition name="chosen">
           <div
             class="table"
             :class="$store.state.isChanged ? 'bg-red' : 'bg-green'"
             v-if="chosenMovies.length"
           >
-            <BtnBlockChosen
-              @deleteChosenMoviesArray="deleteChosenMoviesArray"
-            />
+            <BtnBlockChosen />
             <div>
               <h1>Selected Movies</h1>
               <ChosenArray
-                :chosenMovies="chosenMovies"
                 @deleteChosenItem="deleteChosenItem"
               />
             </div>
@@ -78,34 +69,30 @@ export default {
     ChosenArray,
     ModalPopup,
     BtnBlockFetch,
-		BtnBlockChosen,
-		TheNavbar
+    BtnBlockChosen,
+    TheNavbar,
   },
-  
+
   mounted() {
     this.$store.state.isChanged = JSON.parse(localStorage.getItem("isChanged"));
     this.$store.state.films = JSON.parse(localStorage.getItem("films"));
-		this.$store.state.chosenMovies = JSON.parse(localStorage.getItem("chosenMovies"));
+    this.$store.state.chosenMovies = JSON.parse(
+      localStorage.getItem("chosenMovies")
+    );
   },
   methods: {
     changeMode() {
-			this.$store.state.isChanged = !this.$store.state.isChanged
+      this.$store.commit("changeMode");
 
-			this.$toast.show("<h3>Mode was changed!</h3>", {
-				type: "info",
-			});
+      this.$toast.show("<h3>Mode was changed!</h3>", {
+        type: "info",
+      });
     },
 
-    openModalPopup() {
-      this.$store.state.isOpenModal = true;
-    },
-    closeModalPopup() {
-      this.$store.state.isOpenModal = false;
-    },
     goModalPopup(start, end) {
-      this.$store.state.isOpenModal = false;
+      this.$store.commit("closeModalPopup");
+      this.$store.commit("isLoading");
 
-      this.$store.state.isLoading = true;
       this.$toast.show("<h3>Loading is in progress...</h3>", {
         type: "info",
       });
@@ -114,7 +101,8 @@ export default {
         try {
           this.$store.state.films = await fetchMovies(start, end);
 
-          this.$store.state.isLoading = false;
+          this.$store.commit("notIsLoading");
+
           this.$toast.show("<h3>Movies were loaded!</h3>", {
             type: "success",
           });
@@ -126,25 +114,11 @@ export default {
       }, 3000);
     },
 
-    deleteFilmsArray() {
-      if (this.$store.state.films.length) {
-        this.$store.state.films = [];
-        this.$toast.show("<h3>Movies were deleted from catalog...</h3>", {
-          type: "attention",
-        });
-      }
-    },
-    deleteChosenMoviesArray() {
-      this.$store.state.chosenMovies = [];
-      this.$toast.show("<h3>Selected Movies were deleted...</h3>", {
-        type: "attention",
-      });
-    },
-    chooseFilm(id) {
+		chooseFilm(id) {
       const selectedMovie = this.films.find((item) => item.id === id);
       const isExist = this.$store.state.chosenMovies.find((item) => item.id === id);
 
-      if (isExist) {
+			if (isExist) {
         setTimeout(() => {
           this.$toast.show(
             `<h3>The Movie ${selectedMovie.title} already exist!</h3>`,
@@ -153,7 +127,7 @@ export default {
             }
           );
         }, 500);
-      } else {
+			} else {
         this.$store.state.chosenMovies = this.$store.state.chosenMovies.concat(
           this.$store.state.films.filter((item) => item.id === id)
         );
@@ -189,24 +163,24 @@ export default {
         }, 500);
       }
     },
-	},
-	computed: {
-		isChanged() {
+  },
+  computed: {
+    isChanged() {
       return this.$store.state.isChanged;
-		},
-		isLoading() {
+    },
+    isLoading() {
       return this.$store.state.isLoading;
-		},
-		isOpenModal() {
-			return this.$store.state.isOpenModal;
-		},
-		films() {
-			return this.$store.state.films;
-		},
-		chosenMovies() {
-			return this.$store.state.chosenMovies;
+    },
+    isOpenModal() {
+      return this.$store.state.isOpenModal;
+    },
+    films() {
+      return this.$store.state.films;
+    },
+    chosenMovies() {
+      return this.$store.state.chosenMovies;
 		}
-	},
+  },
   watch: {
     isChanged(newName) {
       localStorage.isChanged = newName;
@@ -231,7 +205,8 @@ export default {
   border-radius: 40px;
   box-shadow: 0px 0px 15px 20px rgba(109, 64, 8, 0.5);
   padding: 25px;
-  background: rgba(251, 4, 20, 1);
+  /* background: rgba(251, 4, 20, 1); */
+  background-color: #1f2937;
 }
 
 .header {
@@ -293,13 +268,13 @@ export default {
 
 /* chosenMovies */
 
-.chosenMovies-enter-active,
-.chosenMovies-leave-active {
+.chosen-enter-active,
+.chosen-leave-active {
   transition: opacity 500ms ease;
 }
 
-.chosenMovies-enter-from,
-.chosenMovies-leave-to {
+.chosen-enter-from,
+.chosen-leave-to {
   opacity: 0;
 }
 </style>

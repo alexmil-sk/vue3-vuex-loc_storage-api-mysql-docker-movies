@@ -1,9 +1,9 @@
 <template>
   <div class="btn-block">
-    <ButtonUi @action="$emit('openModalPopup')" :color="'btn-block_download'">
+    <ButtonUi @action="open" :color="'btn-block_download'">
       <img :src="$store.state.downloadIcon" />
     </ButtonUi>
-    <ButtonUi @action="$emit('deleteFilmsArray')" :color="'btn-block_delete'">
+    <ButtonUi @action="clear" :color="'btn-block_delete'">
       <img :src="$store.state.deleteIcon" />
     </ButtonUi>
   </div>
@@ -12,8 +12,21 @@
 import ButtonUi from "../UI/ButtonUi.vue";
 
 export default {
+  name: "BtnBlockFetch",
   components: { ButtonUi },
-	emits: ["deleteFilmsArray", "openModalPopup"],
+  methods: {
+    open() {
+      this.$store.commit("openModalPopup");
+    },
+    clear() {
+      if (this.$store.getters.films.length) {
+        this.$store.commit("deleteFilmsArray");
+        this.$toast.show("<h3>Movies were deleted from catalog...</h3>", {
+          type: "attention",
+        });
+      }
+    },
+  },
 };
 </script>
 <style lang="css" scoped>
@@ -28,7 +41,6 @@ export default {
   box-shadow: 0px 0px 5px 5px hsla(0, 0%, 99%, 0.5);
   cursor: pointer;
   padding: 2px 5px;
-
 }
 .btn-block button:hover {
   box-shadow: inset 0px 0px 5px 5px hsla(0, 100%, 3%, 0.5);

@@ -5,6 +5,7 @@
 </template>
 <script>
 export default {
+	name: "ButtonUi",
   props: ["color"],
 };
 </script>

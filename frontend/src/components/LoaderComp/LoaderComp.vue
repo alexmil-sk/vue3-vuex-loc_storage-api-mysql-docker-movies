@@ -4,6 +4,12 @@
 	</div>
 </template>
 
+<script>
+export default {
+	name: "LoaderComp"
+}
+</script>
+
 <style lang="css">
 	.loader {
   font-size: 10px;

@@ -15,6 +15,7 @@
 import ChosenItem from "./ChosenItem/ChosenItem.vue";
 
 export default {
+	name: "ChosenArray",
   components: { ChosenItem },
 	computed: {
 		chosenMovies() {

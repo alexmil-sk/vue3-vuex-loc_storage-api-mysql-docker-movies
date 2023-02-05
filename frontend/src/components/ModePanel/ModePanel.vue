@@ -1,29 +1,46 @@
 <template>
   <div class="container-btn">
-    <button class="btn" @click="$emit('changeMode')">
-      <img :src="$store.state.isChanged ? left : right" />
+    <button
+			class="btn"
+			@click="change"
+		>
+      <img :src="isChanged ? left : right" />
     </button>
   </div>
 </template>
 
 <script>
 export default {
-  emits: ["changeMode"],
+	name: "ModePanel",
   computed: {
     right() {
-      return this.$store.state.joinRight;
+      return this.$store.getters.joinRight;
     },
     left() {
-      return this.$store.state.joinLeft;
-    },
-  },
+      return this.$store.getters.joinLeft;
+		},
+		isChanged() {
+			return this.$store.getters.isChanged;
+		}
+	},
+	methods: {
+		change() {
+			this.$store.commit('changeMode');
+		}
+	}
 };
 </script>
 
 <style lang="css" scoped>
 .container-btn {
   display: flex;
-  align-items: end;
+	align-self: end;
+  align-items: center;
+	justify-content: center;
+	border: 2px solid white;
+	border-radius: 50%;
+	width: 80px;
+	height: 72px;
 }
 .btn {
   display: block;

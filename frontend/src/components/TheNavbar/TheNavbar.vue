@@ -10,22 +10,24 @@
       <div class="navbar-buttons">
         <div class="navbar-nav">
           <button class="nav-link">Home</button>
-          <button class="nav-link" href="#">Features</button>
+          <button class="nav-link">Features</button>
         </div>
       </div>
     </div>
   </nav>
 </template>
+
 <script>
-import logo from "../../assets/logo/logo.png";
 export default {
-  data() {
-    return {
-      logo: logo,
-    };
+  name: "TheNavbar",
+  computed: {
+    logo() {
+      return this.$store.getters.logo;
+    },
   },
 };
 </script>
+
 <style lang="css" scoped>
 .navbar {
   display: flex;
@@ -60,16 +62,20 @@ export default {
   text-align: center;
 }
 .navbar-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #1f2937;
   border-radius: 20px;
   border: 1px solid #fff;
-  padding: 15px;
+  padding: 0px 15px;
   margin: 0 10px;
+  height: 70px;
   box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.5);
 }
 .navbar-nav {
   display: flex;
-	flex-wrap: wrap;
+  flex-wrap: wrap;
   align-items: flex-end;
   justify-content: center;
 }
