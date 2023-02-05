@@ -39,7 +39,7 @@
             <BtnBlockChosen />
             <div>
               <h1>Selected Movies</h1>
-              <ChosenArray @deleteChosenItem="deleteChosenItem" />
+              <ChosenArray />
             </div>
           </div>
         </Transition>
@@ -141,17 +141,6 @@ export default {
           );
         }, 500);
       }
-    },
-    deleteChosenItem(movie) {
-      this.$store.commit("deleteChosenItem", movie.id);
-      setTimeout(() => {
-        this.$toast.show(
-          `<h3>Movie ${movie.title} was deleted from selected!</h3>`,
-          {
-            type: "warning",
-          }
-        );
-      }, 600);
     },
   },
   computed: {

@@ -4,7 +4,6 @@
       <div v-for="movie in chosenMovies" :key="movie.id">
         <ChosenItem
           :movie="movie"
-          @deleteChosenItem="$emit('deleteChosenItem', movie)"
         />
       </div>
     </div>
@@ -22,7 +21,6 @@ export default {
 			return this.$store.state.chosenMovies;
 		}
 	},
-	emits: ['deleteChosenItem']
 };
 </script>
 

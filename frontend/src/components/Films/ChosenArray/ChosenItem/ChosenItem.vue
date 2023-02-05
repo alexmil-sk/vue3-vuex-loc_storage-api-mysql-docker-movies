@@ -1,7 +1,7 @@
 <template>
   <div class="card" :class="$store.state.isChanged ? 'bg-for-red' : 'bg-for-green'">
     <img :src="movie.posterURL" width="100" height="156" :alt="movie.title" />
-    <button class="del-btn" @click="$emit('deleteChosenItem', movie)">
+    <button class="del-btn" @click="deleteItem(movie)">
       &times;
     </button>
   </div>
@@ -14,6 +14,19 @@ export default {
 	props: {
 		movie: Object,
 	},
+	methods: {
+		deleteItem(movie) {
+			this.$store.commit("deleteChosenItem", movie.id);
+      setTimeout(() => {
+        this.$toast.show(
+          `<h3>Movie ${movie.title} was deleted from selected!</h3>`,
+          {
+            type: "warning",
+          }
+        );
+      }, 600);
+		}
+	}
 };
 </script>
 
