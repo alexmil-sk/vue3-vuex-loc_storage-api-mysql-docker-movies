@@ -57,7 +57,6 @@ import ModalPopup from "./components/ModalPopup/ModalPopup.vue";
 import BtnBlockFetch from "./components/BtnBlockFetch/BtnBlockFetch.vue";
 import BtnBlockChosen from "./components/BtnBlockChosen/BtnBlockChosen.vue";
 import TheNavbar from "./components/TheNavbar/TheNavbar.vue";
-import { fetchMovies } from "./utils/fetchMovies.js";
 
 export default {
   components: {
