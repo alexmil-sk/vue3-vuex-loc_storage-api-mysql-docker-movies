@@ -18,12 +18,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: "TheNavbar",
-  computed: {
-    logo() {
-      return this.$store.getters.logo;
-    },
+	computed: {
+
+		...mapGetters(['logo'])
+    //logo() {
+    //  return this.$store.getters.logo;
+    //},
   },
 };
 </script>

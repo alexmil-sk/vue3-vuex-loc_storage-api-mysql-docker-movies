@@ -1,7 +1,7 @@
 <template>
   <div
 		class="card"
-		:class="$store.state.isChanged ? 'bg-for-green' : 'bg-for-red'"
+		:class="isChanged ? 'bg-for-green' : 'bg-for-red'"
 	>
     <img
 			:src="film.posterURL"
@@ -13,11 +13,16 @@
 
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
 	name: "FilmItem",
 	props: {
 		film: Object,
 	},
+	computed: {
+		...mapGetters(["isChanged"]),
+	}
 };
 </script>
 

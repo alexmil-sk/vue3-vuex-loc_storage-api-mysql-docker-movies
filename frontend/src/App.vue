@@ -38,7 +38,7 @@
           >
             <BtnBlockChosen />
             <div>
-              <h1>Selected Movies</h1>
+              <h1>MySQL Database</h1>
               <ChosenArray />
             </div>
           </div>
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import ModePanel from "./components/ModePanel/ModePanel.vue";
 import FilmsArray from "./components/Films/FilmsArray/FilmsArray.vue";
 import ChosenArray from "./components/Films/ChosenArray/ChosenArray.vue";
@@ -86,22 +87,25 @@ export default {
       });
     },
   },
-  computed: {
-    isChanged() {
-      return this.$store.getters.isChanged;
-    },
-    isLoading() {
-      return this.$store.getters.isLoading;
-    },
-    isOpenModal() {
-      return this.$store.getters.isOpenModal;
-    },
-    films() {
-      return this.$store.getters.films;
-    },
-    chosenMovies() {
-      return this.$store.getters.chosenMovies;
-    },
+	computed: {
+
+		...mapGetters(['isChanged', 'isLoading', 'isOpenModal', 'films', 'chosenMovies'])
+
+    // isChanged() {
+    //   return this.$store.getters.isChanged;
+    // },
+    // isLoading() {
+    //   return this.$store.getters.isLoading;
+    // },
+    // isOpenModal() {
+    //   return this.$store.getters.isOpenModal;
+    // },
+    // films() {
+    //   return this.$store.getters.films;
+    // },
+    // chosenMovies() {
+    //   return this.$store.getters.chosenMovies;
+    // },
   },
   watch: {
     isChanged(newName) {
@@ -120,13 +124,12 @@ export default {
 
 <style lang="css" scoped>
 .container {
-	display: flex;
+  display: flex;
   min-height: 300px;
   width: 100%;
   border: 5px solid rgba(255, 255, 255, 0.7);
   border-radius: 40px;
-  /* box-shadow: 0px 0px 15px 20px rgba(31,41,55, 1); */
-  box-shadow: 0px 0px 10px 15px rgba(225, 229, 234, .3);
+  box-shadow: 0px 0px 10px 15px rgba(225, 229, 234, 0.3);
   padding: 25px;
   background-color: #1f2937;
 }
@@ -138,8 +141,8 @@ export default {
   margin: 0 auto 35px;
 }
 .table {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
   min-height: 430px;
   border-radius: 25px;
   border: 3px solid rgba(255, 255, 255, 0.8);
@@ -152,10 +155,10 @@ export default {
 }
 
 .table_fetch {
-	flex: 1 1 70%;
+  flex: 1 1 70%;
 }
 .table_choose {
-	flex: 1 1 30%;
+  flex: 1 1 30%;
 }
 .bg-green {
   background: url("./assets/images/green_background-2.png") repeat;

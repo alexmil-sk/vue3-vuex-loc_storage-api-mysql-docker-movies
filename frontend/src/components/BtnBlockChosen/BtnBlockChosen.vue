@@ -1,28 +1,37 @@
 <template>
   <div class="btn-block_chosen">
     <ButtonUi @action="clear" :color="'btn-block_delete'">
-      <img :src="$store.state.deleteIcon" />
+      <img :src="deleteIcon" />
     </ButtonUi>
   </div>
 </template>
 
 <script>
 import ButtonUi from "../UI/ButtonUi.vue";
+import { mapGetters } from 'vuex';
 
 export default {
-	name: "BtnBlockChosen",
-	components: { ButtonUi },
-	methods: {
-		clear() {
-			if (this.$store.getters.chosenMovies.length) {
-				this.$store.commit('deleteChosenMoviesArray');
-				this.$toast.show("<h3>Selected Movies were deleted...</h3>", {
-					type: "attention",
-				});
-			}
-		}
+  name: "BtnBlockChosen",
+  components: { ButtonUi },
+  data() {
+    return {
+      deleteIcon: this.$store.state.deleteIcon,
+    };
+  },
+  methods: {
+    clear() {
+      if (this.chosenMovies.length) {
+        this.$store.commit("deleteChosenMoviesArray");
+        this.$toast.show("<h3>Selected Movies were deleted...</h3>", {
+          type: "attention",
+        });
+      }
+    },
+	},
+	computed: {
+		...mapGetters(['chosenMovies'])
 	}
-}
+};
 </script>
 
 <style lang="css" scoped>
@@ -49,5 +58,24 @@ export default {
 }
 .btn-block_delete {
   background-color: rgb(255, 159, 26);
+}
+
+/* transition */
+
+/* fade */
+
+.transform-enter-to,
+.transform-leave-from {
+  transform: translateY(0);
+}
+
+.transform-enter-from,
+.transform-leave-to {
+  transform: translateY(-50%);
+}
+
+.transform-enter-active,
+.transform-leave-active {
+  transition: all 1.5s ease;
 }
 </style>

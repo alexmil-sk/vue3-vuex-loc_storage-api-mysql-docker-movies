@@ -1,31 +1,47 @@
 <template>
   <div class="btn-block">
     <ButtonUi @action="open" :color="'btn-block_download'">
-      <img :src="$store.state.downloadIcon" />
+      <img :src="downloadIcon" />
     </ButtonUi>
-    <ButtonUi @action="clear" :color="'btn-block_delete'">
-      <img :src="$store.state.deleteIcon" />
-    </ButtonUi>
+    <Transition name="fade">
+      <ButtonUi
+        @action="clear"
+        :color="'btn-block_delete'"
+        v-if="films.length"
+      >
+        <img :src="deleteIcon" />
+      </ButtonUi>
+    </Transition>
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 import ButtonUi from "../UI/ButtonUi.vue";
 
 export default {
   name: "BtnBlockFetch",
   components: { ButtonUi },
+  data() {
+    return {
+      downloadIcon: this.$store.state.downloadIcon,
+      deleteIcon: this.$store.state.deleteIcon,
+    };
+  },
   methods: {
     open() {
       this.$store.commit("openModalPopup");
     },
     clear() {
-      if (this.$store.getters.films.length) {
+      if (this.films.length) {
         this.$store.commit("deleteFilmsArray");
         this.$toast.show("<h3>Movies were deleted from catalog...</h3>", {
           type: "attention",
         });
       }
     },
+  },
+  computed: {
+    ...mapGetters(["films"]),
   },
 };
 </script>
@@ -54,5 +70,26 @@ export default {
 
 .btn-block_download {
   background-color: rgb(136, 236, 60);
+}
+
+/* transition */
+
+/* fade */
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+	transform: translateY(0)
+
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+	transform: translateY(-50%)
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: all 1s ease;
 }
 </style>

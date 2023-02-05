@@ -12,14 +12,16 @@
 
 <script>
 import ChosenItem from "./ChosenItem/ChosenItem.vue";
+import { mapGetters } from 'vuex';
 
 export default {
 	name: "ChosenArray",
   components: { ChosenItem },
 	computed: {
-		chosenMovies() {
-			return this.$store.state.chosenMovies;
-		}
+		...mapGetters(['chosenMovies'])
+		//chosenMovies() {
+		//	return this.$store.state.chosenMovies;
+		//}
 	},
 };
 </script>

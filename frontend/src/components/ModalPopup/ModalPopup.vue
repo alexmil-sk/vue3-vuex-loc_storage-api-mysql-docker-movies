@@ -40,14 +40,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-  name: "ModalPopup",
-  data() {
-    return {
-      startNumber: this.$store.getters.modalNumberStart,
-      endNumber: this.$store.getters.modalNumberEnd,
-    };
-  },
+	name: "ModalPopup",
+	computed: {
+		...mapGetters([{startNumber: 'modalNumberStart'}, {endNumber: 'modalNumberEnd'}])
+	},
+  //data() {
+  //  return {
+  //    startNumber: this.$store.getters.modalNumberStart,
+  //    endNumber: this.$store.getters.modalNumberEnd,
+  //  };
+  //},
   methods: {
     close() {
       this.$store.commit("closeModalPopup");

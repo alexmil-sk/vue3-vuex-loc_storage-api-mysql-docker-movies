@@ -1,49 +1,50 @@
 <template>
   <div class="container-btn">
-    <button
-			class="btn"
-			@click="change"
-		>
+    <button class="btn" @click="change">
       <img :src="isChanged ? left : right" />
     </button>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
-	name: "ModePanel",
+  name: "ModePanel",
   computed: {
-    right() {
-      return this.$store.getters.joinRight;
-    },
-    left() {
-      return this.$store.getters.joinLeft;
-		},
-		isChanged() {
-			return this.$store.getters.isChanged;
-		}
-	},
-	methods: {
-		change() {
-			this.$store.commit('changeMode');
-			this.$toast.show("<h3>Mode was changed!</h3>", {
+    ...mapGetters([{ left: "joinLeft" }, { right: "joinRight" }, "isChanged"]),
+
+    //right() {
+    //  return this.$store.getters.joinRight;
+    //},
+    //left() {
+    //  return this.$store.getters.joinLeft;
+    //},
+    //isChanged() {
+    //	return this.$store.getters.isChanged;
+    //}
+  },
+  methods: {
+    change() {
+      this.$store.commit("changeMode");
+      this.$toast.show("<h3>Mode was changed!</h3>", {
         type: "info",
       });
-		}
-	}
+    },
+  },
 };
 </script>
 
 <style lang="css" scoped>
 .container-btn {
   display: flex;
-	align-self: end;
+  align-self: end;
   align-items: center;
-	justify-content: center;
-	border: 2px solid white;
-	border-radius: 50%;
-	width: 80px;
-	height: 72px;
+  justify-content: center;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 80px;
+  height: 72px;
 }
 .btn {
   display: block;

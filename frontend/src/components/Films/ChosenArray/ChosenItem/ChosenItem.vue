@@ -1,22 +1,22 @@
 <template>
   <div class="card" :class="isChanged ? 'bg-for-red' : 'bg-for-green'">
     <img :src="movie.posterURL" width="100" height="156" :alt="movie.title" />
-    <button class="del-btn" @click="deleteItem(movie)">
-      &times;
-    </button>
+    <button class="del-btn" @click="deleteItem(movie)">&times;</button>
   </div>
 </template>
 
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-	name: "ChosenItem",
-	props: {
-		movie: Object,
-	},
-	methods: {
-		deleteItem(movie) {
-			this.$store.commit("deleteChosenItem", movie.id);
+  name: "ChosenItem",
+  props: {
+    movie: Object,
+  },
+  methods: {
+    deleteItem(movie) {
+      this.$store.commit("deleteChosenItem", movie.id);
       setTimeout(() => {
         this.$toast.show(
           `<h3>Movie ${movie.title} was deleted from selected!</h3>`,
@@ -25,13 +25,15 @@ export default {
           }
         );
       }, 600);
-		}
-	},
-	computed: {
-		isChanged() {
-			return this.$store.getters.isChanged;
-		}
-	},
+    },
+  },
+  computed: {
+    ...mapGetters(["isChanged"]),
+
+    //isChanged() {
+    //	return this.$store.getters.isChanged;
+    //}
+  },
 };
 </script>
 
