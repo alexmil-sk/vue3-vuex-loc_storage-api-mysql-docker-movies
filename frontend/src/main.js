@@ -4,7 +4,8 @@ import {
 import store from "./store";
 import App from './App.vue';
 import Toaster from "@meforma/vue-toaster";
-import './assets/base.css'
+import {router} from './router';
+import './assets/styles/base.css'
 
 createApp(App)
 	.use(Toaster, {
@@ -12,6 +13,7 @@ createApp(App)
 	pauseOnHover: true,
 	duration: 2000
 	})
+	.use(router)
 	.use(store)
 	.mount('#app')
 

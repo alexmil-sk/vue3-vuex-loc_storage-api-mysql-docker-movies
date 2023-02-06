@@ -1,8 +1,10 @@
 <template>
-  <div class="container-btn">
-    <button class="btn" @click="change">
-      <img :src="isChanged ? left : right" />
-    </button>
+  <div class="container-wrapper">
+    <div class="container-btn">
+      <button class="btn" @click="change">
+        <img :src="isChanged ? left : right" />
+      </button>
+    </div>
   </div>
 </template>
 
@@ -32,18 +34,22 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.container-btn {
+.container-wrapper {
   display: flex;
   align-self: end;
   align-items: center;
   justify-content: center;
-  border: 2px solid white;
-  border-radius: 50%;
-  width: 80px;
+  justify-self: center;
+  width: 76px;
   height: 72px;
 }
+
+.container-btn {
+  border: 2px solid white;
+  border-radius: 50%;
+  padding: 3px;
+}
 .btn {
-  display: block;
   width: 64px;
   height: 64px;
   padding: 3px 4px;

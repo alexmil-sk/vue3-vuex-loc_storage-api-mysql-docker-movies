@@ -9,8 +9,10 @@
       </div>
       <div class="navbar-buttons">
         <div class="navbar-nav">
-          <button class="nav-link">Home</button>
-          <button class="nav-link">Features</button>
+          <button class="nav-link"><router-link to="/">Home</router-link></button>
+          <button class="nav-link">Empty</button>
+          <button class="nav-link">Form</button>
+          <button class="nav-link"><router-link to="/login">Login</router-link></button>
         </div>
       </div>
     </div>
@@ -61,6 +63,7 @@ export default {
 .navbar-head {
   color: #fff;
   text-align: center;
+	margin: 3px 0;
 }
 .navbar-buttons {
   display: flex;
@@ -69,9 +72,9 @@ export default {
   background-color: #1f2937;
   border-radius: 20px;
   border: 1px solid #fff;
-  padding: 0px 15px;
+  padding: 10px 15px;
   margin: 0 10px;
-  height: 70px;
+  min-height: 70px;
   box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.5);
 }
 .navbar-nav {

@@ -11,7 +11,10 @@
         <TheNavbar />
         <ModePanel />
       </div>
-      <div class="container">
+
+			<router-view></router-view>
+
+      <!-- <div class="container">
         <div
           class="table table_fetch"
           :class="isChanged ? 'bg-green' : 'bg-red'"
@@ -43,7 +46,8 @@
             </div>
           </div>
         </Transition>
-      </div>
+      </div> -->
+
     </div>
   </div>
 </template>
@@ -58,6 +62,7 @@ import ModalPopup from "./components/ModalPopup/ModalPopup.vue";
 import BtnBlockFetch from "./components/BtnBlockFetch/BtnBlockFetch.vue";
 import BtnBlockChosen from "./components/BtnBlockChosen/BtnBlockChosen.vue";
 import TheNavbar from "./components/TheNavbar/TheNavbar.vue";
+import Login from "./pages/Login.vue";
 
 export default {
   components: {
@@ -68,7 +73,8 @@ export default {
     ModalPopup,
     BtnBlockFetch,
     BtnBlockChosen,
-    TheNavbar,
+		TheNavbar,
+		Login
   },
 
   mounted() {
@@ -110,7 +116,7 @@ export default {
 .container {
   display: flex;
   min-height: 300px;
-  width: 100%;
+  min-width: 600px;
   border: 5px solid rgba(255, 255, 255, 0.7);
   border-radius: 40px;
   box-shadow: 0px 0px 10px 15px rgba(225, 229, 234, 0.3);
@@ -123,6 +129,7 @@ export default {
   justify-content: space-between;
   padding: 5px 45px;
   margin: 0 auto 35px;
+	min-width: 400px;
 }
 .table {
   display: flex;
