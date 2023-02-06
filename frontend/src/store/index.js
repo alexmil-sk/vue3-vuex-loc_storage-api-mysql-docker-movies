@@ -100,20 +100,17 @@ const store = createStore({
 		isLoading(state) {
 			return state.isLoading;
 		},
-		joinRight(state) {
-			return state.joinRight;
-		},
-		joinLeft(state) {
-			return state.joinLeft;
-		},
-		logo(state) {
-			return state.logo;
-		},
 		films(state) {
 			return state.films;
 		},
 		chosenMovies(state) {
 			return state.chosenMovies;
+		},
+		modalNumberStart(state) {
+			return state.modalNumberStart;
+		},
+		modalNumberEnd(state) {
+			return state.modalNumberEnd;
 		}
 	}
 });

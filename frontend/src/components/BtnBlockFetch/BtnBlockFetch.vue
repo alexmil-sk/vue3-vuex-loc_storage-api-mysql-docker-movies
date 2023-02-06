@@ -1,6 +1,6 @@
 <template>
   <div class="btn-block">
-    <ButtonUi @action="open" :color="'btn-block_download'">
+    <ButtonUi @action="openModalPopup" :color="'btn-block_download'">
       <img :src="downloadIcon" />
     </ButtonUi>
     <Transition name="fade">
@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import ButtonUi from "../UI/ButtonUi.vue";
 
 export default {
@@ -27,13 +27,11 @@ export default {
       deleteIcon: this.$store.state.deleteIcon,
     };
   },
-  methods: {
-    open() {
-      this.$store.commit("openModalPopup");
-    },
+	methods: {
+		...mapMutations(['openModalPopup', 'deleteFilmsArray']),
     clear() {
       if (this.films.length) {
-        this.$store.commit("deleteFilmsArray");
+        this.deleteFilmsArray();
         this.$toast.show("<h3>Movies were deleted from catalog...</h3>", {
           type: "attention",
         });

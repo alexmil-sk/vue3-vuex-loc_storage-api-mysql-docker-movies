@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import ModePanel from "./components/ModePanel/ModePanel.vue";
 import FilmsArray from "./components/Films/FilmsArray/FilmsArray.vue";
 import ChosenArray from "./components/Films/ChosenArray/ChosenArray.vue";
@@ -78,35 +78,17 @@ export default {
       localStorage.getItem("chosenMovies")
     );
   },
-  methods: {
+	methods: {
+		...mapMutations({changeModeMutation: 'changeMode'}),
     changeMode() {
-      this.$store.commit("changeMode");
+			this.changeModeMutation();
 
       this.$toast.show("<h3>Mode was changed!</h3>", {
         type: "info",
       });
     },
   },
-	computed: {
-
-		...mapGetters(['isChanged', 'isLoading', 'isOpenModal', 'films', 'chosenMovies'])
-
-    // isChanged() {
-    //   return this.$store.getters.isChanged;
-    // },
-    // isLoading() {
-    //   return this.$store.getters.isLoading;
-    // },
-    // isOpenModal() {
-    //   return this.$store.getters.isOpenModal;
-    // },
-    // films() {
-    //   return this.$store.getters.films;
-    // },
-    // chosenMovies() {
-    //   return this.$store.getters.chosenMovies;
-    // },
-  },
+	computed: mapGetters(['isChanged', 'isLoading', 'isOpenModal', 'films', 'chosenMovies']),
   watch: {
     isChanged(newName) {
       localStorage.isChanged = newName;

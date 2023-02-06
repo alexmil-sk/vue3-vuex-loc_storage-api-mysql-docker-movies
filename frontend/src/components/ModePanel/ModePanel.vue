@@ -7,26 +7,22 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "ModePanel",
-  computed: {
-    ...mapGetters([{ left: "joinLeft" }, { right: "joinRight" }, "isChanged"]),
-
-    //right() {
-    //  return this.$store.getters.joinRight;
-    //},
-    //left() {
-    //  return this.$store.getters.joinLeft;
-    //},
-    //isChanged() {
-    //	return this.$store.getters.isChanged;
-    //}
+  data() {
+    return {
+      left: this.$store.state.joinLeft,
+      right: this.$store.state.joinRight,
+    };
   },
+  computed: mapGetters(["isChanged"]),
   methods: {
+    ...mapMutations(["changeMode"]),
+
     change() {
-      this.$store.commit("changeMode");
+      this.changeMode();
       this.$toast.show("<h3>Mode was changed!</h3>", {
         type: "info",
       });

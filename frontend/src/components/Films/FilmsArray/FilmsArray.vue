@@ -9,7 +9,7 @@
 </template>
 <script>
 import FilmItem from "./FilmItem/FilmItem.vue";
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 
 export default {
@@ -19,15 +19,10 @@ export default {
 	computed: {
 
 		...mapGetters(['films', 'chosenMovies'])
-		//films() {
-    //  return this.$store.state.films;
-		//},
-		//chosenMovies() {
-		//	return this.$store.state.chosenMovies;
-		//}
   },
-	//emits: ["chooseFilm"],
 	methods: {
+
+		...mapMutations(['chooseFilm']),
 		choose(id) {
 			const selectedMovie = this.films.find((item) => item.id === id);
 			const isExist = this.chosenMovies.find((item) => item.id === id);
@@ -43,7 +38,7 @@ export default {
 				}, 500);
 			} else {
 				
-				this.$store.commit('chooseFilm', id);
+				this.chooseFilm(id);
 
 				setTimeout(() => {
 					this.$toast.show(

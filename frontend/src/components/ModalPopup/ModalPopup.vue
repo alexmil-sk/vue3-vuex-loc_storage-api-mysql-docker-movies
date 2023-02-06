@@ -40,22 +40,23 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+
+import { mapMutations, mapActions } from 'vuex';
 
 export default {
 	name: "ModalPopup",
-	computed: {
-		...mapGetters([{startNumber: 'modalNumberStart'}, {endNumber: 'modalNumberEnd'}])
-	},
-  //data() {
-  //  return {
-  //    startNumber: this.$store.getters.modalNumberStart,
-  //    endNumber: this.$store.getters.modalNumberEnd,
-  //  };
-  //},
-  methods: {
-    close() {
-      this.$store.commit("closeModalPopup");
+  data() {
+    return {
+      startNumber: this.$store.getters.modalNumberStart,
+      endNumber: this.$store.getters.modalNumberEnd,
+    };
+  },
+	methods: {
+
+		...mapMutations(['closeModalPopup', 'goModalPopup']),
+		...mapActions(['fetchMoviesAsync']),
+		close() {
+			this.closeModalPopup();
     },
     go() {
       if (this.startNumber == null || this.endNumber == null) {
@@ -82,7 +83,7 @@ export default {
         );
 			} else {
 				
-        this.$store.commit("goModalPopup");
+				this.goModalPopup();
 
         this.$toast.show("<h3>Loading is in progress...</h3>", {
           type: "info",
@@ -90,10 +91,7 @@ export default {
 
         setTimeout(async () => {
           try {
-            this.$store.dispatch("fetchMoviesAsync", {
-              start: this.startNumber,
-              end: this.endNumber,
-            });
+            this.fetchMoviesAsync({start: this.startNumber, end: this.endNumber});
 
             this.$toast.show("<h3>Movies were loaded!</h3>", {
               type: "success",

@@ -8,7 +8,7 @@
 
 <script>
 import ButtonUi from "../UI/ButtonUi.vue";
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: "BtnBlockChosen",
@@ -18,10 +18,11 @@ export default {
       deleteIcon: this.$store.state.deleteIcon,
     };
   },
-  methods: {
+	methods: {
+		...mapMutations(['deleteChosenMoviesArray']),
     clear() {
       if (this.chosenMovies.length) {
-        this.$store.commit("deleteChosenMoviesArray");
+        this.deleteChosenMoviesArray();
         this.$toast.show("<h3>Selected Movies were deleted...</h3>", {
           type: "attention",
         });

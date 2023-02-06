@@ -19,9 +19,6 @@ export default {
   components: { ChosenItem },
 	computed: {
 		...mapGetters(['chosenMovies'])
-		//chosenMovies() {
-		//	return this.$store.state.chosenMovies;
-		//}
 	},
 };
 </script>

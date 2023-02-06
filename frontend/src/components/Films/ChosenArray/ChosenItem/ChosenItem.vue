@@ -7,16 +7,17 @@
 
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: "ChosenItem",
   props: {
     movie: Object,
   },
-  methods: {
+	methods: {
+		...mapMutations(['deleteChosenItem']),
     deleteItem(movie) {
-      this.$store.commit("deleteChosenItem", movie.id);
+      this.deleteChosenItem(movie.id);
       setTimeout(() => {
         this.$toast.show(
           `<h3>Movie ${movie.title} was deleted from selected!</h3>`,
@@ -29,10 +30,6 @@ export default {
   },
   computed: {
     ...mapGetters(["isChanged"]),
-
-    //isChanged() {
-    //	return this.$store.getters.isChanged;
-    //}
   },
 };
 </script>
