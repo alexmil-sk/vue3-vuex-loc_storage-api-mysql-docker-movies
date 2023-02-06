@@ -23,7 +23,7 @@
 
           <div v-else>
             <h1 v-if="films.length">
-              Select Movie For Uploading Into The MYSQL Database
+              Select Movie For Uploading Into The Vuex Database
             </h1>
             <h1 v-else>Load movies...</h1>
 
@@ -38,7 +38,7 @@
           >
             <BtnBlockChosen />
             <div>
-              <h1>MySQL Database</h1>
+              <h1>Vuex Database</h1>
               <ChosenArray />
             </div>
           </div>
@@ -88,7 +88,9 @@ export default {
       });
     },
   },
-	computed: mapGetters(['isChanged', 'isLoading', 'isOpenModal', 'films', 'chosenMovies']),
+	computed: {
+		...mapGetters(['isChanged', 'isLoading', 'isOpenModal', 'films', 'chosenMovies'])
+	},
   watch: {
     isChanged(newName) {
       localStorage.isChanged = newName;

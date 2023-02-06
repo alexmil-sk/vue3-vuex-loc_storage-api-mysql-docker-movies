@@ -41,14 +41,14 @@
 
 <script>
 
-import { mapMutations, mapActions } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
 	name: "ModalPopup",
   data() {
     return {
-      startNumber: this.$store.getters.modalNumberStart,
-      endNumber: this.$store.getters.modalNumberEnd,
+      startNumber: this.modalNumberStart,
+      endNumber: this.modalNumberEnd,
     };
   },
 	methods: {
@@ -104,7 +104,10 @@ export default {
         }, 3000);
       }
     },
-  },
+	},
+	computed: {
+		...mapGetters(['modalNumberStart', 'modalNumberEnd'])
+	}
 };
 </script>
 
