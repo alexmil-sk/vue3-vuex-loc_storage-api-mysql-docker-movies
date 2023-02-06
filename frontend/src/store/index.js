@@ -12,7 +12,7 @@ import {
 
 
 
-const store = createStore({
+export default createStore({
 	state() {
 		return {
 			deleteIcon: delete_icon,
@@ -114,5 +114,3 @@ const store = createStore({
 		}
 	}
 });
-
-export default store;

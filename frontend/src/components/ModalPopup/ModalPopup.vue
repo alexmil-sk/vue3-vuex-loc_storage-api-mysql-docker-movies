@@ -24,6 +24,7 @@
       <section class="modal-body-2">
         <label for="modalNumberEnd">End the range of movies</label>
         <input
+					@keypress.enter="go"
           id="modalNumberEnd"
           type="number"
           placeholder="From 2 to 86"
