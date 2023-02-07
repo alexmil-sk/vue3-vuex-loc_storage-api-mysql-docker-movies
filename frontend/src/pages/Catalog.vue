@@ -60,8 +60,13 @@ export default {
     this.$store.state.films = JSON.parse(localStorage.getItem("films"));
     this.$store.state.chosenMovies = JSON.parse(
       localStorage.getItem("chosenMovies")
-    );
-  },
+		);
+	},
+	beforeRouteLeave(_, _, next) {
+		let isWant = confirm('Do you really want to leave the Catalog?');
+		if (isWant) return next()	
+
+	},
   methods: {
     ...mapMutations({ changeModeMutation: "changeMode" }),
     changeMode() {

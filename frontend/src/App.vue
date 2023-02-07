@@ -1,10 +1,12 @@
 <template>
   <div>
     <div class="wrapper">
-      <div class="header" v-if="isAuth">
+      <div class="header">
         <TheNavbar />
         <ModePanel />
       </div>
+    </div>
+    <div>
       <router-view></router-view>
     </div>
   </div>
@@ -25,32 +27,39 @@ export default {
       isAuth: false,
     };
   },
+  mounted() {
+    this.isAuth = localStorage.getItem("isAuth");
+  },
   methods: {
     login() {
       this.isAuth = true;
-      this.$router.replace("/catalog");
+      this.$router.replace("/home");
     },
     logout() {
       this.isAuth = false;
       this.$router.replace("/login");
     },
-	},
-	provide() {
-		return {
-			login: this.login,
-			logout: this.logout
-		}
-	}
+  },
+  provide() {
+    return {
+      login: this.login,
+      logout: this.logout,
+    };
+  },
+  watch: {
+    isAuth(newValue) {
+      localStorage.isAuth = newValue;
+    },
+  },
 };
 </script>
 
-<style>
+<style lang="css" scoped>
 .header {
   display: flex;
-	min-width: 450px;
+  min-width: 450px;
   justify-content: space-between;
   padding: 5px 45px;
   margin: 0 auto 35px;
 }
-
 </style>

@@ -3,14 +3,22 @@
     <div class="container">
       <div class="navbar-title">
         <span class="navbar-logo">
-          <img :src="logo" alt="logo" @click="$router.push('/catalog')" />
+          <img :src="logo" alt="logo" @click="$router.push('/home')" />
         </span>
         <h1 class="navbar-head">CINEMA ONLINE</h1>
       </div>
       <div class="navbar-buttons">
         <ul class="navbar-menu">
           <li>
-            <router-link to="/forget">Home</router-link>
+            <router-link to="/home" custom v-slot="{ navigate, href }">
+              <a
+                href="#"
+                @click="navigate"
+                :class="{ active: $route.path.indexOf(href) !== -1 }"
+              >
+                Home
+              </a>
+            </router-link>
           </li>
           <li>
             <router-link to="/catalog">Catalog</router-link>
@@ -47,7 +55,7 @@ export default {
 <style lang="css" scoped>
 .navbar {
   display: flex;
-	width: 100%;
+  width: 100%;
   min-width: 250px;
   height: 160px;
   align-items: center;
@@ -72,9 +80,9 @@ export default {
   box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.5);
 }
 @media (max-width: 820px) {
-	.navbar-title {
-		flex-basis: 132px;
-	}
+  .navbar-title {
+    flex-basis: 132px;
+  }
 }
 
 .navbar-logo img {
@@ -123,9 +131,9 @@ export default {
 }
 
 @media (max-width: 820px) {
-	.navbar-menu {
-		flex-direction: column;
-	}
+  .navbar-menu {
+    flex-direction: column;
+  }
 }
 .navbar-menu li {
   display: flex;
@@ -171,14 +179,16 @@ export default {
   transition: 600ms;
 }
 .navbar-menu li:hover {
-	border: 1px solid #d40912;
+  border: 1px solid yellow;
 }
 .navbar-menu li a:hover {
-	color: #d40912;
+  color: yellow;
 }
+
 .navbar-menu li a.active {
   color: #fff;
   background-color: #d40912;
   box-shadow: inset 0 0 15px 5px #6b0001;
+  border-radius: 7px;
 }
 </style>
