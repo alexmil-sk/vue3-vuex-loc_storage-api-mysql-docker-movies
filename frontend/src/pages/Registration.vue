@@ -10,8 +10,10 @@
       <input type="password" id="password" v-model="password" />
     </div>
     <div class="">
-      <button class="btn primary" type="submit">Enter</button>
-      <button class="btn warning">Ragistration</button>
+      <button class="btn warning" type="submit">Ragistration</button>
+      <router-link to="/">
+        <button class="btn primary">Login</button>
+      </router-link>
     </div>
   </form>
 </template>
@@ -22,19 +24,19 @@ export default {
       email: "",
       password: "",
     };
-	},
-	computed: {
-		isValid() {
-			return this.email !== '' && this.password !== ''
-		}
-	},
-	methods: {
-		login() {
-			if (isValid) {
-				//login
-			}
-		}
-	}
+  },
+  computed: {
+    isValid() {
+      return this.email !== "" && this.password !== "";
+    },
+  },
+  methods: {
+    login() {
+      if (isValid) {
+        //login
+      }
+    },
+  },
 };
 </script>
 

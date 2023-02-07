@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="login" class="card">
+  <form @submit.prevent="submit" class="card">
     <h2>LOGIN</h2>
     <div class="form-control">
       <label for="email">EMAIL</label>
@@ -9,9 +9,14 @@
       <label for="password">PASSWORD</label>
       <input type="password" id="password" v-model="password" />
     </div>
-    <div class="">
+    <div>
       <button class="btn primary" type="submit">Enter</button>
-      <button class="btn warning">Ragistration</button>
+      <router-link to="/registration">
+        <button class="btn warning">
+          Ragistration
+        </button>
+      </router-link>
+      <router-link to="/forget">Forget password?</router-link>
     </div>
   </form>
 </template>
@@ -22,19 +27,20 @@ export default {
       email: "",
       password: "",
     };
+  },
+  computed: {
+    isValid() {
+      return this.email !== "" && this.password !== "";
+    },
+  },
+  methods: {
+    submit() {
+      if (this.isValid) {
+				this.login();
+      }
+    },
 	},
-	computed: {
-		isValid() {
-			return this.email !== '' && this.password !== ''
-		}
-	},
-	methods: {
-		login() {
-			if (isValid) {
-				//login
-			}
-		}
-	}
+	inject: ['login']
 };
 </script>
 

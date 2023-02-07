@@ -40,8 +40,6 @@ export default {
   align-items: center;
   justify-content: center;
   justify-self: center;
-  width: 76px;
-  height: 72px;
 }
 
 .container-btn {
@@ -50,8 +48,8 @@ export default {
   padding: 3px;
 }
 .btn {
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: 60px;
   padding: 3px 4px;
   border-radius: 50%;
   cursor: pointer;

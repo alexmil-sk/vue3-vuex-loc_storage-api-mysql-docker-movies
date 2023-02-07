@@ -1,15 +1,15 @@
 <template>
-	<div class="card">
-		<h2>Forget password? You should try to recall it!</h2>
-		<button class="btn">Login</button>
-		<button class="btn">Registration</button>
-	</div>
+  <div class="card">
+    <h2>Forget password?</h2>
+    <div class="form-control">
+      <button class="btn primary" @click="$router.push('/login')">Login</button>
+      <button class="btn info">Change password</button>
+    </div>
+  </div>
 </template>
 <script>
-export default {
-	
-}
+export default {};
 </script>
 <style lang="css" scoped>
-	@import '../assets/styles/theme_auth.css';
+@import "../assets/styles/theme_auth.css";
 </style>

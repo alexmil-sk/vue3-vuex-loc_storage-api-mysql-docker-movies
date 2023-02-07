@@ -35,12 +35,17 @@ h6 {
 h1 {
 	font-size: 2.2rem;
 	font-weight: 600;
+	margin-bottom: 10px;
+	text-align: center;
+
 }
 
 h2 {
 	font-size: 1.65rem;
 	padding-bottom: 0.3rem;
 	text-align: center;
+	margin-bottom: 10px;
+
 }
 
 h3 {
@@ -56,7 +61,7 @@ h3 {
 /*}*/
 
 .card {
-	width: 400px;
+	width: 500px;
 	overflow: hidden;
 	padding: 1rem;
 	margin: 20px auto;
@@ -131,6 +136,12 @@ h3 {
 	background: #c25205;
 	color: #fff;
 	border-color: #c25205;
+}
+
+.btn.info {
+	background: #24799e;
+	color: #fff;
+	border-color: #24799e;
 }
 
 .container {
@@ -363,37 +374,3 @@ h3 {
 	}
 }
 
-.navbar {
-	display: flex;
-	padding: 0 2rem;
-	justify-content: space-between;
-	align-items: center;
-	position: fixed;
-	z-index: 20;
-	top: 0;
-	left: 0;
-	right: 0;
-	height: 56px;
-	background-color: #fff;
-	box-sizing: border-box;
-	border-bottom: 1px solid #eaecef;
-}
-
-.navbar-menu {
-	list-style: none;
-	display: flex;
-}
-
-.navbar-menu li {
-	margin-right: 2rem;
-}
-
-.navbar-menu li a {
-	color: #2c3e50;
-	text-decoration: none;
-}
-
-.navbar-menu li a:hover,
-.navbar-menu li a.active {
-	border-bottom: 2px solid #3eaf7c;
-}

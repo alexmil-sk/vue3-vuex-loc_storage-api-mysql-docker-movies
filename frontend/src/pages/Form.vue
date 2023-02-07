@@ -17,14 +17,14 @@
 			<button
 				type="submut"
 				class="btn primary"
-				:disabled="!title.length || !posterUrl.length"
+				:disabled="!title || !posterUrl"
 				>SEND</button>
 		</form>
   </div>
 </template>
 <script>
 export default {
-	name: {FilmForm},
+	name: "Form",
 	data() {
 		return {
 			id: '',
@@ -40,5 +40,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-@import "../../assets/styles/theme_form.css";
+@import "../assets/styles/theme_form.css";
 </style>
