@@ -1,7 +1,7 @@
 <template>
   <div>
     <Transition name="fade">
-      <div v-if="$store.getters.isOpenModal">
+      <div v-if="isOpenModal">
         <ModalPopup />
       </div>
     </Transition>
@@ -52,21 +52,20 @@ export default {
     LoaderComp,
     ChosenArray,
     BtnBlockFetch,
-		BtnBlockChosen,
-		ModalPopup
+    BtnBlockChosen,
+    ModalPopup,
   },
   mounted() {
     this.$store.state.isChanged = JSON.parse(localStorage.getItem("isChanged"));
     this.$store.state.films = JSON.parse(localStorage.getItem("films"));
     this.$store.state.chosenMovies = JSON.parse(
       localStorage.getItem("chosenMovies")
-		);
-	},
-	beforeRouteLeave(_, _, next) {
-		let isWant = confirm('Do you really want to leave the Catalog?');
-		if (isWant) return next()	
-
-	},
+    );
+  },
+  beforeRouteLeave(_, __, next) {
+    let isWant = confirm("Do you really want to leave the Catalog?");
+    if (isWant) return next();
+  },
   methods: {
     ...mapMutations({ changeModeMutation: "changeMode" }),
     changeMode() {
@@ -129,6 +128,7 @@ export default {
 }
 .table_choose {
   flex: 1 1 30%;
+  transform: scale(1) translateY(0);
 }
 .bg-green {
   background: url("../assets/images/green_background-2.png") repeat;
@@ -164,16 +164,16 @@ export default {
 
 .chosen-enter-from,
 .chosen-leave-to {
-  opacity: 0;
+	transform: scale(0) translateY(-500px);
 }
 
 .chosen-enter-to,
 .chosen-leave-from {
-  opacity: 1;
+  transform: scale(1) translateY(0);
 }
 
 .chosen-enter-active,
 .chosen-leave-active {
-  transition: opacity 500ms ease;
+  transition: all 500ms ease;
 }
 </style>
