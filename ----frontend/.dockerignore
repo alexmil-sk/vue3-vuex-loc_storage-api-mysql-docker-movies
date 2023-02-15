@@ -1,0 +1,5 @@
+node_modules
+Dockerfile
+desktop.ini
+dist
+.git
