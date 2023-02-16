@@ -11,7 +11,7 @@
     </div>
     <div class="">
       <button class="btn warning" type="submit">Ragistration</button>
-      <router-link to="/">
+      <router-link to="/login">
         <button class="btn primary">Login</button>
       </router-link>
     </div>

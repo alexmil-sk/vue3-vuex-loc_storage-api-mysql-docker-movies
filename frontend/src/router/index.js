@@ -3,16 +3,20 @@ import {
 	createWebHistory
 } from 'vue-router';
 
-const routes = [{
-		path: "/login",
-		component: () => import("../pages/Login.vue"),
-		alias: "/"
-	},
+const routes = [
 	{
-		path: "/home",
+		path: "/",
 		component: () => import("../pages/Home.vue"),
 		meta: {
-			requiresAuth: true
+			layout: 'main'
+		}
+	},
+	{
+		path: "/contacts",
+		component: () => import("../pages/Contacts.vue"),
+		meta: {
+			requiresAuth: true,
+			layout: 'main'
 		},
 		children: [{
 			path: ":id",
@@ -24,28 +28,43 @@ const routes = [{
 		path: "/catalog",
 		component: () => import("../pages/Catalog.vue"),
 		meta: {
-			requiresAuth: true
+			requiresAuth: true,
+			layout: 'main'
 		},
-	},
-	{
-		path: "/registration",
-		component: () => import("../pages/Registration.vue"),
-	},
-	{
-		path: "/forget",
-		component: () => import("../pages/Forget.vue"),
 	},
 	{
 		path: "/form",
 		component: () => import("../pages/Form.vue"),
 		meta: {
-			requiresAuth: true
+			requiresAuth: true,
+			layout: 'main'
 		},
+	},
+	{
+		path: "/login",
+		component: () => import("../pages/Login.vue"),
+		meta: {
+			layout: 'auth'
+		}
+	},
+	{
+		path: "/registration",
+		component: () => import("../pages/Registration.vue"),
+		meta: {
+			layout: 'auth'
+		}
+	},
+	{
+		path: "/forget",
+		component: () => import("../pages/Forget.vue"),
+		meta: {
+			layout: 'auth'
+		}
 	},
 	{
 		path: '/:notFound(.*)',
 		component: () => import("../pages/NotFound.vue"),
-
+		layout: 'main'
 	}
 
 ]
@@ -58,10 +77,8 @@ export const router = createRouter({
 });
 
 router.beforeEach((to, _, next) => {
+
 	let isAuthenticated = !false;
 	if (to.meta.requiresAuth && !isAuthenticated) return next('/login');
 	next();
 });
-
-
-

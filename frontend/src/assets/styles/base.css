@@ -63,13 +63,14 @@
 }
 
 body {
-	min-width: 100vw;
-	min-height: 100vw;
-	background: url("../bg/bg.png") 0 0 /cover no-repeat fixed;
+	width: 100vw;
+	height: 100vw;
+	background: url("../bg/bg-film.png") 0 0 /cover no-repeat fixed;
 	backdrop-filter: blur(8px);
 	font-family: Inter, Roboto, Oxygen, Fira Sans, Helvetica Neue, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+	overflow-x: hidden;
 }
 
 #app {

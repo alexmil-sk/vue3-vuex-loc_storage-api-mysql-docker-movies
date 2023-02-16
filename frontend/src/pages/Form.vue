@@ -40,5 +40,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-@import "../assets/styles/theme_form.css";
+@import "../assets/styles/theme_form_movie.css";
 </style>

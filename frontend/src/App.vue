@@ -1,65 +1,73 @@
 <template>
-  <div>
-    <div class="wrapper">
-      <div class="header">
-        <TheNavbar />
-        <ModePanel />
-      </div>
-    </div>
-    <div>
-      <router-view></router-view>
-    </div>
-  </div>
+	<div>
+		<Transition name="chosen">
+			<Component :is="`${layoutType}-layout`" v-if="layoutType" />
+		</Transition>
+</div>
 </template>
 
 <script>
-import ModePanel from "./components/ModePanel/ModePanel.vue";
-import TheNavbar from "./components/TheNavbar/TheNavbar.vue";
+import MainLayout from "./layouts/MainLayout.vue";
+import AuthLayout from "./layouts/AuthLayout.vue";
 
 export default {
-  name: "App",
-  components: {
-    ModePanel,
-    TheNavbar,
-  },
-  data() {
-    return {
-      isAuth: false,
-    };
-  },
-  mounted() {
-    this.isAuth = localStorage.getItem("isAuth");
-  },
-  methods: {
-    login() {
-      this.isAuth = true;
-      this.$router.replace("/home");
-    },
-    logout() {
-      this.isAuth = false;
-      this.$router.replace("/login");
-    },
-  },
-  provide() {
-    return {
-      login: this.login,
-      logout: this.logout,
-    };
-  },
-  watch: {
-    isAuth(newValue) {
-      localStorage.isAuth = newValue;
-    },
-  },
+	name: "App",
+	components: {
+		MainLayout,
+		AuthLayout,
+	},
+	data() {
+		return {
+			isAuth: false,
+		};
+	},
+	mounted() {
+		this.isAuth = localStorage.getItem("isAuth");
+	},
+	methods: {
+		login() {
+			this.isAuth = true;
+			this.$router.replace("/home");
+		},
+		logout() {
+			this.isAuth = false;
+			this.$router.replace("/login");
+		},
+	},
+	provide() {
+		return {
+			login: this.login,
+			logout: this.logout,
+		};
+	},
+	watch: {
+		isAuth(newValue) {
+			localStorage.isAuth = newValue;
+		},
+	},
+	computed: {
+		layoutType() {
+			return this.$route.meta.layout;
+		},
+	},
 };
 </script>
 
 <style lang="css" scoped>
-.header {
-  display: flex;
-  min-width: 450px;
-  justify-content: space-between;
-  padding: 5px 45px;
-  margin: 0 auto 35px;
+/* chosenMovies */
+
+.chosen-enter-from,
+.chosen-leave-to {
+	transform: scale(0) translateY(-500px);
+}
+
+.chosen-enter-to,
+.chosen-leave-from {
+  transform: scale(1) translateY(0);
+}
+
+.chosen-enter-active,
+.chosen-leave-active {
+  transition: all 500ms ease;
 }
 </style>

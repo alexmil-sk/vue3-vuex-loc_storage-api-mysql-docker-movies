@@ -109,7 +109,6 @@ export default {
   padding: 25px;
   background-color: #1f2937;
 }
-
 .table {
   display: flex;
   flex-direction: column;
