@@ -1,12 +1,15 @@
 <template>
-	
 	<div class="wrapper">
 		<div class="container">
-			<router-view></router-view>
+			<Transition name="login">
+				<router-view></router-view>
+			</Transition>
 		</div>
 </div>
 </template>
 <script>
+
+
 
 export default {
 
@@ -34,4 +37,20 @@ export default {
 	height: 85vh;
 }
 
+/* login */
+
+.login-enter-from,
+.login-leave-to {
+	transform: scale(0) translateY(-500px);
+}
+
+.login-enter-to,
+.login-leave-from {
+  transform: scale(1) translateY(0);
+}
+
+.login-enter-active,
+.login-leave-active {
+  transition: all 1000ms ease;
+}
 </style>

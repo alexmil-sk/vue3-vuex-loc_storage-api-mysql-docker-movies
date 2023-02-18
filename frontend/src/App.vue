@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Transition name="chosen">
+		<Transition name="login">
 			<Component :is="`${layoutType}-layout`" v-if="layoutType" />
 		</Transition>
 </div>
@@ -18,7 +18,7 @@ export default {
 	},
 	data() {
 		return {
-			isAuth: false,
+			isAuth: false
 		};
 	},
 	mounted() {
@@ -27,7 +27,7 @@ export default {
 	methods: {
 		login() {
 			this.isAuth = true;
-			this.$router.replace("/home");
+			this.$router.replace("/");
 		},
 		logout() {
 			this.isAuth = false;
@@ -54,20 +54,21 @@ export default {
 </script>
 
 <style lang="css" scoped>
-/* chosenMovies */
 
-.chosen-enter-from,
-.chosen-leave-to {
+/* login */
+
+.login-enter-from,
+.login-leave-to {
 	transform: scale(0) translateY(-500px);
 }
 
-.chosen-enter-to,
-.chosen-leave-from {
+.login-enter-to,
+.login-leave-from {
   transform: scale(1) translateY(0);
 }
 
-.chosen-enter-active,
-.chosen-leave-active {
-  transition: all 500ms ease;
+.login-enter-active,
+.login-leave-active {
+  transition: all 1000ms ease;
 }
 </style>

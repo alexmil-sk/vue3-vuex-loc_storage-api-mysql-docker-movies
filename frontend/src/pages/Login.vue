@@ -1,58 +1,81 @@
 <template>
-  <form @submit.prevent="submit" class="card">
-    <h2>LOGIN</h2>
-    <div class="form-control">
-      <label for="email">EMAIL</label>
-      <input type="text" id="email" v-model.trim="email" />
-    </div>
-    <div class="form-control">
-      <label for="password">PASSWORD</label>
-      <input type="password" id="password" v-model="password" />
-    </div>
-    <div>
-      <button class="btn primary" type="submit">Enter</button>
-      <router-link to="/registration">
-        <button class="btn warning">
-          Ragistration
-        </button>
-      </router-link>
-      <router-link to="/forget">Forget password?</router-link>
-    </div>
-  </form>
+	<Form @submit="onSubmit" class="card">
+		<h2>LOGIN</h2>
+		<div :class="['form-control', { invalid: eError }]">
+			<label for="email">EMAIL</label>
+			<Field name="email" type="email" id="email" :rules="validateEmail" />
+			<ErrorMessage name="email" class="error-message" />
+		</div>
+		<div :class="['form-control', { invalid: pError }]">
+			<label for="password">PASSWORD</label>
+			<Field name="password" type="password" id="password" :rules="validatePass" />
+			<ErrorMessage name="password" class="error-message" />
+		</div>
+		<div>
+			<button
+				class="btn primary"
+				type="submit"
+				:disabled="eError || pError || isSubmitting"
+			>Enter
+			</button>
+			<router-link to="/registration">
+				<button class="btn warning ">
+					Ragistration
+				</button>
+			</router-link>
+			<router-link to="/forget">Forget password?</router-link>
+		</div>
+</Form>
 </template>
 <script>
 
-
-
 import { Field, Form, ErrorMessage } from "vee-validate";
-import * as yup from "yup";
-
-
 
 export default {
 	name: "Login",
-  data() {
-    return {
-      email: "",
-      password: "",
-    };
-  },
-  computed: {
-    isValid() {
-      return this.email !== "" && this.password !== "";
-    },
-  },
-  methods: {
-    submit() {
-      if (this.isValid) {
-				this.login();
-      }
-    },
+	components: {
+		Field, Form, ErrorMessage
+	},
+	inject: ['login'],
+	data() {
+		return {
+			eError: true,
+			pError: true,
+			isSubmitting: false
+		};
+	},
+	methods: {
+		onSubmit(values) {
+			this.login();
+			console.log(values);
+		},
+		validateEmail(value) {
+			this.eError = true;
+			if (!value) {
+				return "This field is required!";
+			}
+
+			const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+			if (!regex.test(value)) {
+				return 'This is not a valid email';
+			}
+			this.eError = false;
+			return true;
+		},
+		validatePass(value) {
+			this.pError = true;
+
+			if (!value) {
+				return 'This field is required!';
+			} else if (value.length < 6) {
+				return `You insert ${value.length} characters. Password must contain at least 6 characters!`;
+			}
+			this.pError = false;
+			return true;
+		}
 	},
 	inject: ['login']
 };
 </script>
 
-<style lang="css" scoped>
-@import "../assets/styles/theme_auth.css";
-</style>
+<style lang="css" scoped>@import "../assets/styles/theme_auth.css";</style>
