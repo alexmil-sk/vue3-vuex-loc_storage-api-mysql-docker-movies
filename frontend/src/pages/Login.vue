@@ -12,11 +12,7 @@
 			<ErrorMessage name="password" class="error-message" />
 		</div>
 		<div>
-			<button
-				class="btn primary"
-				type="submit"
-				:disabled="eError || pError || isSubmitting"
-			>Enter
+			<button class="btn primary" type="submit" :disabled="eError || pError || isSubmitting">Enter
 			</button>
 			<router-link to="/registration">
 				<button class="btn warning ">
@@ -25,10 +21,9 @@
 			</router-link>
 			<router-link to="/forget">Forget password?</router-link>
 		</div>
-</Form>
+	</Form>
 </template>
 <script>
-
 import { Field, Form, ErrorMessage } from "vee-validate";
 
 export default {
@@ -36,7 +31,6 @@ export default {
 	components: {
 		Field, Form, ErrorMessage
 	},
-	inject: ['login'],
 	data() {
 		return {
 			eError: true,
@@ -44,14 +38,22 @@ export default {
 			isSubmitting: false
 		};
 	},
+
 	methods: {
-		onSubmit(values) {
-			this.login();
-			console.log(values);
+		async onSubmit(values) {
+			await this.$store.dispatch('auth/loginAccount', values);
+			this.$router.replace("/");
+
+			if (this.$route.query.message === 'nouser') {
+				this.$toast.show("<h3>The User no exist!</h3>", {
+					type: "error",
+				});
+			}
 		},
 		validateEmail(value) {
 			this.eError = true;
 			if (!value) {
+				
 				return "This field is required!";
 			}
 
@@ -74,8 +76,9 @@ export default {
 			return true;
 		}
 	},
-	inject: ['login']
 };
 </script>
 
-<style lang="css" scoped>@import "../assets/styles/theme_auth.css";</style>
+<style lang="css" scoped>
+@import "../assets/styles/theme_auth.css";
+</style>

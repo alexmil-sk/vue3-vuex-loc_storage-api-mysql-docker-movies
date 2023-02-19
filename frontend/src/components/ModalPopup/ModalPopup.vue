@@ -54,8 +54,8 @@ export default {
   },
 	methods: {
 
-		...mapMutations(['closeModalPopup', 'goModalPopup']),
-		...mapActions(['fetchMoviesAsync']),
+		...mapMutations('films', ['closeModalPopup', 'goModalPopup']),
+		...mapActions('films', ['fetchMoviesAsync']),
 		close() {
 			this.closeModalPopup();
     },
@@ -107,7 +107,7 @@ export default {
     },
 	},
 	computed: {
-		...mapGetters(['modalNumberStart', 'modalNumberEnd'])
+		...mapGetters('films', ['modalNumberStart', 'modalNumberEnd'])
 	}
 };
 </script>

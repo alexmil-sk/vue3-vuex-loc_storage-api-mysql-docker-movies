@@ -18,7 +18,7 @@ export default {
 	name: "ChosenArray",
   components: { ChosenItem },
 	computed: {
-		...mapGetters(['chosenMovies'])
+		...mapGetters('films', ['chosenMovies'])
 	},
 };
 </script>

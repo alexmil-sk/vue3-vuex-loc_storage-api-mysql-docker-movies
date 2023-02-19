@@ -21,7 +21,7 @@ export default {
 		film: Object,
 	},
 	computed: {
-		...mapGetters(["isChanged"]),
+		...mapGetters('films', ["isChanged"]),
 	}
 };
 </script>

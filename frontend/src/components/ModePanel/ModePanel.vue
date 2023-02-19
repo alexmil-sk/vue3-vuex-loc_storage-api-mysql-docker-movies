@@ -15,13 +15,13 @@ export default {
   name: "ModePanel",
   data() {
     return {
-      left: this.$store.state.joinLeft,
-      right: this.$store.state.joinRight,
+      left: this.$store.state.films.joinLeft,
+      right: this.$store.state.films.joinRight,
     };
   },
-  computed: mapGetters(["isChanged"]),
+  computed: mapGetters('films', ["isChanged"]),
   methods: {
-    ...mapMutations(["changeMode"]),
+    ...mapMutations('films', ["changeMode"]),
 
     change() {
       this.changeMode();

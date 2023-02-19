@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="login" class="card">
+  <form @submit.prevent="registration" class="card">
     <h2>REGISTRATION</h2>
     <div class="form-control">
       <label for="email">EMAIL</label>
@@ -31,9 +31,11 @@ export default {
     },
   },
   methods: {
-    login() {
-      if (isValid) {
-        //login
+    registration() {
+      if (this.isValid) {
+				this.$toast.show("<h3>Registration was successfull!</h3>", {
+					type: "success",
+				});
       }
     },
   },

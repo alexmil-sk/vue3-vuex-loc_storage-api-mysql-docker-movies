@@ -1,6 +1,6 @@
 import {
 	fetchMovies
-} from "../utils/fetchMovies.js";
+} from "../../../utils/fetchMovies.js";
 
 export default {
 	isLoading(state) {
@@ -42,8 +42,8 @@ export default {
 	},
 	goModalPopup(state) {
 		state.films = [];
-		this.commit('closeModalPopup');
-		this.commit('isLoading');
+		this.commit('films/closeModalPopup');
+		this.commit('films/isLoading');
 	},
 	fetchMoviesMutation(state, payload) {
 		fetchMovies(payload.start, payload.end)

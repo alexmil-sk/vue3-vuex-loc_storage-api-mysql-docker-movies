@@ -33,7 +33,7 @@
 				</ul>
 			</div>
 		</div>
-</nav>
+	</nav>
 </template>
 
 <script>
@@ -43,11 +43,16 @@ export default {
 	name: "TheNavbar",
 	data() {
 		return {
-			logo: this.$store.state.logo,
+			logo: this.$store.state.films.logo,
 			logoutIcon: logout_png,
 		};
 	},
-	inject: ["logout"],
+	methods: {
+		logout() {
+			this.$store.commit('auth/exitAccount');
+			this.$router.replace("/login");
+		}
+	}
 };
 </script>
 

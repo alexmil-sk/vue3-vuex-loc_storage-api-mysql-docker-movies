@@ -23,12 +23,12 @@ export default {
   components: { ButtonUi },
   data() {
     return {
-      downloadIcon: this.$store.state.downloadIcon,
-      deleteIcon: this.$store.state.deleteIcon,
+      downloadIcon: this.$store.state.films.downloadIcon,
+      deleteIcon: this.$store.state.films.deleteIcon,
     };
   },
 	methods: {
-		...mapMutations(['openModalPopup', 'deleteFilmsArray']),
+		...mapMutations('films', ['openModalPopup', 'deleteFilmsArray']),
     clear() {
       if (this.films.length) {
         this.deleteFilmsArray();
@@ -39,7 +39,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["films"]),
+    ...mapGetters('films', ["films"]),
   },
 };
 </script>

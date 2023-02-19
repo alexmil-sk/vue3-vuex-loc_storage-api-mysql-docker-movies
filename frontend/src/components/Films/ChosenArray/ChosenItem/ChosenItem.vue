@@ -15,7 +15,7 @@ export default {
     movie: Object,
   },
 	methods: {
-		...mapMutations(['deleteChosenItem']),
+		...mapMutations('films', ['deleteChosenItem']),
     deleteItem(movie) {
       this.deleteChosenItem(movie.id);
       setTimeout(() => {
@@ -29,7 +29,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["isChanged"]),
+    ...mapGetters('films', ["isChanged"]),
   },
 };
 </script>

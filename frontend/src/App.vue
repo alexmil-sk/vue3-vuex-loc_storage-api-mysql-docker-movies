@@ -16,35 +16,6 @@ export default {
 		MainLayout,
 		AuthLayout,
 	},
-	data() {
-		return {
-			isAuth: false
-		};
-	},
-	mounted() {
-		this.isAuth = localStorage.getItem("isAuth");
-	},
-	methods: {
-		login() {
-			this.isAuth = true;
-			this.$router.replace("/");
-		},
-		logout() {
-			this.isAuth = false;
-			this.$router.replace("/login");
-		},
-	},
-	provide() {
-		return {
-			login: this.login,
-			logout: this.logout,
-		};
-	},
-	watch: {
-		isAuth(newValue) {
-			localStorage.isAuth = newValue;
-		},
-	},
 	computed: {
 		layoutType() {
 			return this.$route.meta.layout;

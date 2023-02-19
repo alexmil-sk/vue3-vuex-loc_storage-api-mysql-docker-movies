@@ -18,11 +18,11 @@ export default {
   components: { FilmItem },
 	computed: {
 
-		...mapGetters(['films', 'chosenMovies'])
+		...mapGetters('films', ['films', 'chosenMovies'])
   },
 	methods: {
 
-		...mapMutations(['chooseFilm']),
+		...mapMutations('films', ['chooseFilm']),
 		choose(id) {
 			const selectedMovie = this.films.find((item) => item.id === id);
 			const isExist = this.chosenMovies.find((item) => item.id === id);

@@ -1,14 +1,17 @@
 <template>
 	<div class="wrapper">
 		<div class="container">
-			<Transition name="login">
-				<router-view></router-view>
-			</Transition>
+
+			<router-view v-slot="{ Component }">
+				<transition name="login">
+					<component :is="Component" />
+				</transition>
+			</router-view>
+
 		</div>
-</div>
+	</div>
 </template>
 <script>
-
 
 
 export default {
@@ -41,16 +44,16 @@ export default {
 
 .login-enter-from,
 .login-leave-to {
-	transform: scale(0) translateY(-500px);
+	transform: translateX(-3000px) ;
 }
 
 .login-enter-to,
 .login-leave-from {
-  transform: scale(1) translateY(0);
+	transform: translateX(-250px);
 }
 
 .login-enter-active,
 .login-leave-active {
-  transition: all 1000ms ease;
+	transition: all 1000ms ease-out;
 }
 </style>

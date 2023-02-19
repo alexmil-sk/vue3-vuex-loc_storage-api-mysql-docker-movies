@@ -2,12 +2,16 @@ import {
 	createRouter,
 	createWebHistory
 } from 'vue-router';
+import store from "../store";
+import Toaster from "@meforma/vue-toaster";
+
 
 const routes = [
 	{
 		path: "/",
 		component: () => import("../pages/Home.vue"),
 		meta: {
+			requiresAuth: true,
 			layout: 'main'
 		}
 	},
@@ -44,6 +48,7 @@ const routes = [
 		path: "/login",
 		component: () => import("../pages/Login.vue"),
 		meta: {
+			requiresAuth: false,
 			layout: 'auth'
 		}
 	},
@@ -51,6 +56,7 @@ const routes = [
 		path: "/registration",
 		component: () => import("../pages/Registration.vue"),
 		meta: {
+			requiresAuth: false,
 			layout: 'auth'
 		}
 	},
@@ -58,6 +64,7 @@ const routes = [
 		path: "/forget",
 		component: () => import("../pages/Forget.vue"),
 		meta: {
+			requiresAuth: false,
 			layout: 'auth'
 		}
 	},
@@ -78,7 +85,7 @@ export const router = createRouter({
 
 router.beforeEach((to, _, next) => {
 
-	let isAuthenticated = !false;
-	if (to.meta.requiresAuth && !isAuthenticated) return next('/login');
+	let isAuthenticated = store.getters['auth/isAuthenticated'];
+	if (to.meta.requiresAuth && !isAuthenticated) return next('/login?message=nouser')
 	next();
 });

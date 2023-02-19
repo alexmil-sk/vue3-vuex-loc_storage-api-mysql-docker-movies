@@ -15,11 +15,11 @@ export default {
   components: { ButtonUi },
   data() {
     return {
-      deleteIcon: this.$store.state.deleteIcon,
+      deleteIcon: this.$store.state.films.deleteIcon,
     };
   },
 	methods: {
-		...mapMutations(['deleteChosenMoviesArray']),
+		...mapMutations('films', ['deleteChosenMoviesArray']),
     clear() {
       if (this.chosenMovies.length) {
         this.deleteChosenMoviesArray();
@@ -30,7 +30,7 @@ export default {
     },
 	},
 	computed: {
-		...mapGetters(['chosenMovies'])
+		...mapGetters('films', ['chosenMovies'])
 	}
 };
 </script>
