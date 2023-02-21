@@ -33,7 +33,7 @@ export default createStore({
 			}, 1000);
 			setTimeout(() => {
 				context.commit('removeErrMessage');
-			}, 5000);
+			}, 5500);
 		}
 	},
 	modules: {

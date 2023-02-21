@@ -14,6 +14,7 @@
 </template>
 <script>
 import ErrorMessage from "../components/UI/ErrorMessage.vue";
+import {error} from "../utils/error.js"
 
 
 export default {
@@ -25,12 +26,11 @@ export default {
 
 		if (this.$route.query.message) {
 			this.$store.dispatch('setDelayedMessage', {
-				text: "You must enter your account first!",
+				text: error(this.$route.query.message),
 				type: "warning"
 			})
 		}
 	}
-
 }
 </script>
 <style lang="css" scoped>
@@ -44,7 +44,6 @@ export default {
 }
 
 .container {
-	/* position: relative; */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -60,14 +59,16 @@ export default {
 	transform: translateY(-1200px);
 }
 
-.login-enter-to,
+.login-enter-to {
+	transform: translateY(-50%);
+}
 .login-leave-from {
-	transform: translateY(-45%);
+	transform: translateY(50%);
 }
 
 .login-enter-active,
 .login-leave-active {
-	transition: all 1500ms linear;
+	transition: all 1500ms linear .3s;
 }
 
 /* message */
@@ -86,4 +87,7 @@ export default {
 .message-leave-active {
 	transition: all 500ms linear;
 }
+
+
+
 </style>

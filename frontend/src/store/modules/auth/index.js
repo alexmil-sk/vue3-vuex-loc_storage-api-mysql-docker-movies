@@ -34,7 +34,9 @@ export default {
 				});
 				context.commit('setToken', data.idToken)
 
-				context.commit('removeErrMessage', null, {root: true});
+				context.commit('removeErrMessage', null, {
+					root: true
+				});
 
 			} catch (err) {
 
@@ -44,6 +46,8 @@ export default {
 				}, {
 					root: true
 				});
+
+				throw new Error();
 
 			};
 		},

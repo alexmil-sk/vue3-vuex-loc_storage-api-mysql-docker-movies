@@ -2,6 +2,7 @@ const ERROR_CODES = {
 	EMAIL_NOT_FOUND: 'User with this email not exist',
 	INVALID_PASSWORD: 'Password is incorrect',
 	TOO_MANY_ATTEMPTS_TRY_LATER: 'Too many attempts. Try later!',
+	login_error: 'You must enter your account first!'
 }
 
 export function error(code) {

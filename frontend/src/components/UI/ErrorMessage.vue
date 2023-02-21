@@ -5,6 +5,7 @@
 			<p>{{ message.text }}</p>
 		</div>
 		<span class="alert-close" @click="$store.commit('removeErrMessage')">&times;</span>
+		<div class="progress"></div>
 	</div>
 </template>
 <script>

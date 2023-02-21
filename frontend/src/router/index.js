@@ -86,6 +86,6 @@ export const router = createRouter({
 router.beforeEach((to, _, next) => {
 
 	let isAuthenticated = store.getters['auth/isAuthenticated'];
-	if (to.meta.requiresAuth && !isAuthenticated) return next('/login?message=error')
+	if (to.meta.requiresAuth && !isAuthenticated) return next('/login?message=login_error')
 	next();
 });
