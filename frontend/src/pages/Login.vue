@@ -26,6 +26,7 @@
 <script>
 import { Field, Form, ErrorMessage } from "vee-validate";
 
+
 export default {
 	name: "Login",
 	components: {
@@ -41,19 +42,26 @@ export default {
 
 	methods: {
 		async onSubmit(values) {
-			await this.$store.dispatch('auth/loginAccount', values);
-			this.$router.replace("/");
 
-			if (this.$route.query.message === 'nouser') {
-				this.$toast.show("<h3>The User no exist!</h3>", {
-					type: "error",
-				});
+			try {
+				await this.$store.dispatch('auth/loginAccount', values);
+				this.$router.replace("/");
+
+				if (!this.$store.state.errMessage) {
+					this.$toast.show("<h3>Authorization was successfull!</h3>", {
+						type: "success",
+					});
+				}
+
+			} catch (e) {
+
 			}
+
 		},
 		validateEmail(value) {
 			this.eError = true;
 			if (!value) {
-				
+
 				return "This field is required!";
 			}
 

@@ -243,6 +243,11 @@ h3 {
 	background-color: #f8f8f8;
 }
 
+.alert.info {
+	border-color: #0000ff;
+	background-color: #f8f8f8;
+}
+
 .alert p {
 	color: #222;
 	line-height: 1.7;

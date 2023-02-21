@@ -1,4 +1,8 @@
+import axios from "axios";
 const JWT_TOKEN = 'jwt-token';
+import {
+	error
+} from "../../../utils/error.js";
 
 export default {
 	namespaced: true,
@@ -12,7 +16,7 @@ export default {
 			state.token = token;
 			localStorage.setItem(JWT_TOKEN, token);
 		},
-		exitAccount(state) {
+		removeToken(state) {
 			state.token = null;
 			localStorage.removeItem(JWT_TOKEN);
 		},
@@ -20,8 +24,40 @@ export default {
 	},
 	actions: {
 		async loginAccount(context, payload) {
-			context.commit('setToken', JWT_TOKEN);
-		}
+			try {
+				const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${import.meta.env.VITE_FB_AUTH_KEY}`
+				const {
+					data
+				} = await axios.post(url, {
+					...payload,
+					returnSecureToken: true
+				});
+				context.commit('setToken', data.idToken)
+
+				context.commit('removeErrMessage', null, {root: true});
+
+			} catch (err) {
+
+				context.dispatch('setMessage', {
+					text: error(err.response.data.error.message),
+					type: 'danger'
+				}, {
+					root: true
+				});
+
+			};
+		},
+		exitAccount(context) {
+
+			context.commit('removeToken');
+
+			context.dispatch('setDelayedMessage', {
+				text: 'You was logged out',
+				type: 'info'
+			}, {
+				root: true
+			});
+		},
 	},
 	getters: {
 		token(state) {

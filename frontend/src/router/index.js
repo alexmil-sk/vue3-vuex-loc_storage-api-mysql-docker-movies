@@ -6,8 +6,7 @@ import store from "../store";
 import Toaster from "@meforma/vue-toaster";
 
 
-const routes = [
-	{
+const routes = [{
 		path: "/",
 		component: () => import("../pages/Home.vue"),
 		meta: {
@@ -71,6 +70,7 @@ const routes = [
 	{
 		path: '/:notFound(.*)',
 		component: () => import("../pages/NotFound.vue"),
+		requiresAuth: false,
 		layout: 'main'
 	}
 
@@ -86,6 +86,6 @@ export const router = createRouter({
 router.beforeEach((to, _, next) => {
 
 	let isAuthenticated = store.getters['auth/isAuthenticated'];
-	if (to.meta.requiresAuth && !isAuthenticated) return next('/login?message=nouser')
+	if (to.meta.requiresAuth && !isAuthenticated) return next('/login?message=error')
 	next();
 });

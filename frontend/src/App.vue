@@ -3,7 +3,7 @@
 		<Transition name="login">
 			<Component :is="`${layoutType}-layout`" v-if="layoutType" />
 		</Transition>
-</div>
+	</div>
 </template>
 
 <script>
@@ -25,7 +25,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
 /* login */
 
 .login-enter-from,
@@ -35,11 +34,11 @@ export default {
 
 .login-enter-to,
 .login-leave-from {
-  transform: scale(1) translateY(0);
+	transform: scale(1) translateY(0);
 }
 
 .login-enter-active,
 .login-leave-active {
-  transition: all 1000ms ease;
+	transition: all 1000ms ease;
 }
 </style>

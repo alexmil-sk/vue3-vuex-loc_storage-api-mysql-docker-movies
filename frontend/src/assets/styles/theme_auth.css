@@ -54,6 +54,7 @@ h3 {
 
 .card {
 	width: 500px;
+	min-height: 282px;
 	overflow: hidden;
 	padding: 1rem;
 	border-radius: 10px;
@@ -234,33 +235,39 @@ h3 {
 }
 
 .alert {
-	padding: 1rem 1.5rem;
-	border-left-width: .5rem;
-	border-left-style: solid;
-	margin: 1rem 0;
-	position: relative;
-	border-bottom-right-radius: 2px;
-	border-top-right-radius: 2px;
+	position: absolute;
+	width: 300px;
+	display: flex;
+	justify-content: space-between;
+	top: 0;
+	right: 0;
+	padding: .5rem 1rem;
+	border-radius: 5px;
+	margin: 20px;
+	color: white;
+	z-index: 100;
 }
 
 .alert.primary {
-	border-color: #42b983;
-	background-color: #f8f8f8;
+	background-color: #42b983;
 }
 
 .alert.danger {
-	border-color: #e53935;
-	background-color: #f8f8f8;
+	background-color: rgb(225, 75, 75);
 }
 
 .alert.warning {
-	border-color: #c25205;
-	background-color: #f8f8f8;
+	background-color: #c25205;
+}
+
+.alert.info {
+	background-color: #1505c2;
 }
 
 .alert p {
-	color: #222;
 	line-height: 1.7;
+	color: #ffffff;
+
 }
 
 .alert-title {
@@ -268,6 +275,19 @@ h3 {
 	font-weight: 600;
 	margin-bottom: -.4rem;
 	color: #222;
+}
+
+.alert-close{
+	font-size: 25px;
+	cursor: pointer;
+}
+
+.alert-close:hover {
+	transform: scale(1.2);
+}
+
+.alert-close:active {
+	transform: scale(1);
 }
 
 .modal {
@@ -365,4 +385,3 @@ h3 {
 		transform: rotate(360deg);
 	}
 }
-

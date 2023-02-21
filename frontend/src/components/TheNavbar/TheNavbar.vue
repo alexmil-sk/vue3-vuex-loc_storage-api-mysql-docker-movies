@@ -49,8 +49,8 @@ export default {
 	},
 	methods: {
 		logout() {
-			this.$store.commit('auth/exitAccount');
 			this.$router.replace("/login");
+			this.$store.dispatch('auth/exitAccount');
 		}
 	}
 };
