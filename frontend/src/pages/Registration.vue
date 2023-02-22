@@ -34,11 +34,6 @@ export default {
 			isSubmitting: false,
 		}
 	},
-
-	mounted() {
-		console.log('Form', Form.keepValues
-		);
-	},
 	computed: {
 		registrationSchema() {
 			return yup.object({
@@ -47,7 +42,7 @@ export default {
 					.trim()
 					.required("This field is required!")
 					.matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, 'This is not a valid email'),
-					//.email('This is not a valid email'),
+				//.email('This is not a valid email'),
 				password: yup
 					.string()
 					.trim()
@@ -57,12 +52,11 @@ export default {
 		},
 	},
 	methods: {
-		onSubmit(values) {
-			if (values) {
-				this.$toast.show("<h3>Registration was successfull!</h3>", {
-					type: "success",
-				});
-			}
+		async onSubmit(values) {
+			try {
+				await this.$store.dispatch('auth/regAccount', values);
+					this.$router.replace('/login');
+			} catch (e) { }
 		},
 	},
 };

@@ -21,18 +21,20 @@ export default createStore({
 		}
 	},
 	actions: {
-		setMessage(context, message) {
-			context.commit('setErrMessage', message);
+		setMessage({
+			commit
+		}, message) {
+			commit('setErrMessage', message);
 			setTimeout(() => {
-				context.commit('removeErrMessage');
+				commit('removeErrMessage');
 			}, 5000);
 		},
-		setDelayedMessage(context, message) {
+		setDelayedMessage({commit}, message) {
 			setTimeout(() => {
-				context.commit('setErrMessage', message);
+				commit('setErrMessage', message);
 			}, 1000);
 			setTimeout(() => {
-				context.commit('removeErrMessage');
+				commit('removeErrMessage');
 			}, 5500);
 		}
 	},
