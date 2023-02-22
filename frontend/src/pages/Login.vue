@@ -52,25 +52,25 @@ export default {
 						type: "success",
 					});
 				}
-
-			} catch (e) {
-
-			}
+			} catch (e) { }
 
 		},
 		validateEmail(value) {
 			this.eError = true;
+			const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+			
 			if (!value) {
-
 				return "This field is required!";
 			}
 
-			const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 			if (!regex.test(value)) {
 				return 'This is not a valid email';
 			}
-			this.eError = false;
-			return true;
+
+			if (value && value.trim()) {
+				this.eError = false;
+				return true;
+			}
 		},
 		validatePass(value) {
 			this.pError = true;
