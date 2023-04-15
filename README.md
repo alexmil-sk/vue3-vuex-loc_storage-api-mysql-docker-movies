@@ -117,46 +117,50 @@ To use application, you need to load on your computer Node.js by the following c
 
 2. You only need to take the docker-compose.pub.yml file from the project folder on GitHub.
 
-3.To start the project in the terminal, you need to type the command:
+3. To start the project in the terminal, you need to type the command:
 
    ```sh
    $>docker-compose -f docker-compose.pub.yml up
    ```
 
-4.To access the MySQL database administration zone using Adminer, you must use a password, located in docker-compose.yml file in the section:
+4. To access the MySQL database administration zone using Adminer, you must use a password, located in docker-compose.yml file in the section:
 
    ```js
+
   backend:
   environment:
   MYSQL_USER: root
   MYSQL_PASSWORD: password
-  ```
+
+   ```
 
 ### Installation for Docker Local version (to be able to edit application on your computer)
 
-1.Download the application from the repository on GitHub.
+1. Download the application from the repository on GitHub.
 
-2.Run MySQL service on your computer (backend).
+2. Run MySQL service on your computer (backend).
 
-3.Download, install and start Docker Desktop. (link is below).
+3. Download, install and start Docker Desktop. (link is below).
 
-4.In the terminal, go to the root folder of the application.
+4. In the terminal, go to the root folder of the application.
 
-5.Run the command:
+5. Run the command:
 
    ```sh
    $>docker-compose up
    ```
 
-6.When the application starts working, you can edit the application files located on your computer, with instant display of the results in the browser.
+6. When the application starts working, you can edit the application files located on your computer, with instant display of the results in the browser.
 
-7.To access the MySQL database administration zone using Adminer, you must use a password, located in docker-compose.yml file in the section:
+7. To access the MySQL database administration zone using Adminer, you must use a password, located in docker-compose.yml file in the section:
 
    ```js
+
   backend:
   environment:
   MYSQL_USER: root
   MYSQL_PASSWORD: password
+
   ```
 
 <!-- USAGE EXAMPLES -->
