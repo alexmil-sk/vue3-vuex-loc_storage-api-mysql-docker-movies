@@ -1,0 +1,70 @@
+Skip to content
+Search or jump to…
+Pulls
+Issues
+Codespaces
+Marketplace
+Explore
+ 
+@alexmil-sk 
+alexmil-sk
+/
+react-router65-mysql-clients_app
+Public
+Cannot fork because you own this repository and are not a member of any organizations.
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+More
+react-router65-mysql-clients_app/frontend/.gitignore
+@alexmil-sk
+alexmil-sk first commit
+Latest commit b854ed0 2 days ago
+ History
+ 1 contributor
+25 lines (23 sloc)  258 Bytes
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+react-router65-mysql-clients_app/.gitignore at master · alexmil-sk/react-router65-mysql-clients_app 

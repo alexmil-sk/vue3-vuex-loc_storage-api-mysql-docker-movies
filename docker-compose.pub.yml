@@ -1,0 +1,41 @@
+version: '3.1'
+services:
+  frontend:
+    image: almlrdv/vue3-vuex-api-mysql-movies-frontend-dev
+    container_name: 'almlrdv-frontend-movies'
+    ports: 
+      - '3000:3000'
+    restart: always
+    depends_on:
+      - backend
+  backend:
+    image: almlrdv/vue3-vuex-api-mysql-movies-backend-dev
+    container_name: 'almlrdv-backend-movies'
+    ports:
+      - '5555:5555'
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: '3306'
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: films_catalog
+  mysql:
+    image: mysql
+    container_name: 'mysql-movies'
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: films_catalog
+    volumes:
+      - mysql_data_pub:/var/lib/mysql
+  adminer:
+    image: adminer
+    container_name: 'adminer-movies'
+    restart: always
+    ports:
+      - '8080:8080'
+volumes: 
+  mysql_data_pub: 
