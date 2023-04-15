@@ -1,9 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="assets/logo/logo.png" alt="Logo" width="100" height="100">
-  </a>
+    <img src="frontend/src/assets/logo/logo.png" alt="Logo" width="100" height="100">
 
   <h3 align="center">Movies Database (Vuex && MySQL)</h3>
 
